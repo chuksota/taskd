@@ -6,8 +6,9 @@ const {asyncHandler, csrfProtection} = require('./utils')
 const {check, validationResult} = require('express-validator')
 
 /* GET users listing. */
-router.get('/users/signup', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/signup', csrfProtection, function(req, res, next) {
+  const user = db.User.build()
+  res.render('signup', {title: 'Sign Up', csrfToken: req.csrfToken(), user})
 });
 
 module.exports = router;
