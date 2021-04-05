@@ -40,7 +40,7 @@ store.sync();
 app.use(restoreUser);
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use(usersRouter);
 app.use("/homepage", homeRouter);
 
 // catch 404 and forward to error handler

@@ -33,7 +33,7 @@ const restoreUser = async (req, res, next) => {
 
 const requireAuth = (req, res, next) => {
   if (!res.locals.authenticated) {
-    return res.redirect("/users/login");
+    return res.redirect("/login");
   }
   return next();
 };
