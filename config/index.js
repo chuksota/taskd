@@ -9,4 +9,5 @@ module.exports = {
     database: process.env.DB_DATABASE,
     host: process.env.DB_HOST,
   },
+  sessionSecret: process.env.SESSION_SECRET 
 };
