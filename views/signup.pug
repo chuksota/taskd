@@ -7,7 +7,7 @@ block content
             each error in errors
                 li= error
 
-    form(action="/signup" method="POST" class='form-group')
+    form(action="/signup" method="POST" class='form-inline pr-4' )
         input(type="hidden" name="_csrf" value=csrfToken)
         label(for="userName") User Name
         input(type="text" name="userName" value=user.userName )
