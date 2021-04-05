@@ -1,0 +1,8 @@
+extends layout.pug
+
+block content
+
+    h1 This is the logged in users Homepage
+
+    form(method="POST" action="/users/logout")
+        button(type="submit") Logout
