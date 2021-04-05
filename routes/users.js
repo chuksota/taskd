@@ -86,4 +86,39 @@ router.post(
   })
 );
 
+router.get('/login', csrfProtection, (req, res)=>{
+  res.render('login', {title: 'Login', csrfToken: req.csrfToken()})
+})
+
+
+const loginValidators = [
+  check('email')
+    .exists({checkFalsy: true})
+    .withMessage('Please provide an email'),
+  check('password')
+    .exists({checkFalsy: true})
+    .withMessage('Please provide a password')
+];
+
+router.post('/login', loginValidators, csrfProtection, asyncHandler(async (req, res)=>{
+  const {email, password} = req.body
+  const validatorErrors = validationResult(req)
+  let errors = []
+  if (validatorErrors.isEmpty()){
+    const user = await db.User.findOne({where: {email}})
+    if (user){
+      const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
+      if(passwordMatch){
+        //login the user
+        return res.redirect('/homepage')
+      }
+    }
+    errors.push('Login failed for the provided email and password')
+  } else {
+    errors = validatorErrors.array().map((error)=> error.msg)
+  }
+  res.render('login', {title: 'Login', errors, csrfToken: req.csrfToken()})
+}));
+
+
 module.exports = router;
