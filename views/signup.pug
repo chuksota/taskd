@@ -1,14 +1,20 @@
-extends layout 
+extends layout
 
 block content
-    form(action="/users/signup" method="POST") 
+
+    if errors
+        ul
+            each error in errors
+                li= error
+
+    form(action="/users/signup" method="POST")
         input(type="hidden" name="_csrf" value=csrfToken)
-        label(for="username") User Name
-        input(type="text" name="username" value=user.userName required)
+        label(for="userName") User Name
+        input(type="text" name="userName" value=user.userName )
         label(for='email') Email
-        input(type="email" name='email' value=user.email required)
+        input(type="email" name='email' value=user.email )
         label(for='password') Password
-        input(type="password" name='password' value=user.password required)
-        label(for='confirmpassword') Confirm Password
-        input(type="password" name='confirmpassword' value='' required)
+        input(type="password" name='password' value=user.password )
+        label(for='confirmPassword') Confirm Password
+        input(type="password" name='confirmPassword' value='' )
         button(type='submit') Submit
