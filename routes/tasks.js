@@ -48,6 +48,7 @@ router.put('/:id', taskValidators, asyncHandler(async (req, res) =>{
     if (!validationErrors.isEmpty()) {
         const errors = validatorErrors.array().map((error) => error.msg);
         res.json({ errors })
+        return
     }
 
     if(task){
