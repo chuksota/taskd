@@ -14,7 +14,6 @@ const allTasks = async (listId) => {
   const res = await fetch(`/tasks/${listId}`);
 
   return await res.json();
-  console.log("banana");
 };
 
 const updateTasks = async (description, notes, dueDate, completed, id) => {
