@@ -21,7 +21,7 @@ const taskValidators = [
     check('notes').length({max: 500}).withMessage('notes cannot be more than 500 characters'),
 ]
 
-router.post('/:listId', taskValidators, asyncHandler(async (req, res)=>{
+router.post('/:listId(\\d+)', taskValidators, asyncHandler(async (req, res)=>{
     listId = parseInt(req.params.listId);
     const {description, notes, dueDate} = req.body;
 
@@ -38,7 +38,7 @@ router.post('/:listId', taskValidators, asyncHandler(async (req, res)=>{
 
 }))
 
-router.put('/:id', taskValidators, asyncHandler(async (req, res) =>{
+router.put('/:id(\\d+)', taskValidators, asyncHandler(async (req, res) =>{
     const id = parseInt(req.params.id);
     const task = await Task.findByPk(id);
 
@@ -67,7 +67,7 @@ router.put('/:id', taskValidators, asyncHandler(async (req, res) =>{
     }
 }))
 
-router.delete('/:id', asyncHandler(async (req, res) => {
+router.delete('/:id(\\d+)', asyncHandler(async (req, res) => {
     const id = parseInt(req.params.id);
     const task = await Task.findByPk(id);
     await task.destroy();
