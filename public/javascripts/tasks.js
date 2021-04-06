@@ -34,4 +34,4 @@ const deleteTasks = async (id) => {
   return await res.json();
 };
 
-module.exports = { createTask, allTasks, updateTasks };
+module.exports = { createTask, allTasks, updateTasks, deleteTasks };
