@@ -4,7 +4,7 @@ const db = require("../db/models");
 const { asyncHandler, csrfProtection } = require("./utils");
 const { check, validationResult } = require("express-validator");
 
-listsValidators = [
+const listsValidators = [
   check('name')
     .exists({checkFalsy: true})
     .withMessage('Please provide a list name')
@@ -30,7 +30,7 @@ router.post('/', listsValidators,  asyncHandler(async(req, res)=>{
 const validatorErrors = validationResult(req)
 if(validatorErrors.isEmpty()){
   await newList.save()
-  res.json(newList)
+  res.json({newList})
 } else {
   const errors = validatorErrors.array().map((error)=> error.msg)
   res.json({errors})
