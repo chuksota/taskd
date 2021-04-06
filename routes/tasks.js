@@ -28,7 +28,7 @@ router.post('/:listId', taskValidators, asyncHandler(async (req, res)=>{
     const newTask = await Task.build({description, notes, dueDate, listId});
 
     const validationErrors = validationResult(req)
-    if(validationErrors.isEmpty){
+    if(validationErrors.isEmpty()){
        await newTask.save()
        res.json(newTask);
     } else {
@@ -43,6 +43,12 @@ router.put('/:id', taskValidators, asyncHandler(async (req, res) =>{
     const task = await Task.findByPk(id);
 
     const {description, notes, dueDate, completed} = req.body;
+
+    const validationErrors = validationResult(req)
+    if (!validationErrors.isEmpty()) {
+        const errors = validatorErrors.array().map((error) => error.msg);
+        res.json({ errors })
+    }
 
     if(task){
         task.description = description;
