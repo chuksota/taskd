@@ -38,4 +38,26 @@ router.post('/:listId', taskValidators, asyncHandler(async (req, res)=>{
 
 }))
 
+router.put('/:id', taskValidators, asyncHandler(async (req, res) =>{
+    const id = parseInt(req.params.id);
+    const task = await Task.findByPk(id);
+
+    const {description, notes, dueDate, completed} = req.body;
+
+    if(task){
+        task.description = description;
+        task.notes = notes;
+        task.dueDate = dueDate;
+        task.completed = completed;
+        await task.save();
+        res.json({task})
+    }
+    else {
+        const error = new Error(`Task ${id} not found!`)
+        error.status = 404
+        error.title = 'Task not found'
+        res.json({error})
+    }
+}))
+
 module.exports = router
