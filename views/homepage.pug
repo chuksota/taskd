@@ -3,5 +3,11 @@ extends layout.pug
 block content
 
     h1 This is the logged in users Homepage
-
-
+    div(id='list-form')
+        form(action='/lists' method='POST')
+            label(for='name') Name
+            input(type='text' name='name' value=list.name)
+            label(for='dueDate') Due Date
+            input(type='date' name='dueDate' value=list.dueDate)
+            label(for='completed')
+            input(type='checkbox' name='completed'  value=list.completed)
