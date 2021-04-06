@@ -1,30 +1,35 @@
-const listForm = document.querySelector('#list-form')
+const createList = async (name, dueDate, userId) => {
+  const res = await fetch("/lists", {
+    method: "POST",
+    body: JSON.stringify(name, dueDate, userId),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return await res.json();
+};
 
-listForm.addEventListener('submit', async (event) => {
-  event.preventDefault()
+const allLists = async (userId) => {
+  const res = await fetch(`/lists/${userId}`);
 
-  const formData = new FormData(listForm)
-  const name = formData.get('name')
-  const dueDate = formData.get('dueDate')
-  const completed = formData.get('completed')
+  return await res.json();
+};
 
-  const body = {name, dueDate, completed}
+const updateLists = async (name, dueDate, completed, id) => {
+  const res = await fetch(`/lists/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(name, dueDate, completed, id),
+    header: {
+      "Content-Type": "application/json",
+    },
+  });
+  return await res.json();
+};
 
-  try {
-    const res = await fetch('../routes/lists', {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-    if(!res.ok){
-      throw res
-    }
-    window.location.href('/homepage')
-  } catch(e){
-    if(e.status >= 400 && e.status < 600){
-      const errorJSON = await e.json();
-    }
-  }
-})
+const deleteLists = async (id) => {
+  const res = await fetch(`/lists/${id}`, {
+    method: "DELETE",
+  });
+  return await res.json();
+};
+module.exports = { createList, allLists, updateLists, deleteLists };
