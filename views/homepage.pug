@@ -1,5 +1,6 @@
 extends layout.pug
-
+append head
+    script(src="/javascripts/index.js" type="module")
 block content
 
     h1 taskd
@@ -9,13 +10,12 @@ block content
 
     div(id="leftViewArea")
         button(id="addListButton" class= "addBtn") Create New List
-        ul(id="listOfLists")
-
+        div(id="listOfLists")
 
 
     div(id="centerViewArea")
         button(id="addTaskButton" class= "addBtn") Create New Button
-        ul(id="listOfTask")
+        div(id="listOfTask")
 
 
     div(id="rightViewArea")
