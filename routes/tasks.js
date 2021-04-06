@@ -16,9 +16,9 @@ const taskValidators = [
     check('description')
         .exists({checkFalsy: true})
         .withMessage('Please enter a description')
-        .length({max: 200})
+        .isLength({max: 200})
         .withMessage('descirption cannot be more than 200 characters'),
-    check('notes').length({max: 500}).withMessage('notes cannot be more than 500 characters'),
+    check('notes').isLength({max: 500}).withMessage('notes cannot be more than 500 characters'),
 ]
 
 router.post('/:listId(\\d+)', taskValidators, asyncHandler(async (req, res)=>{
