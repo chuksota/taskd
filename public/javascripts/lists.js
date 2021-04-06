@@ -1,7 +1,7 @@
-const createList = async (name, dueDate, userId) => {
+const createList = async (name, dueDate) => {
   const res = await fetch("/lists", {
     method: "POST",
-    body: JSON.stringify(name, dueDate, userId),
+    body: JSON.stringify(name, dueDate),
     headers: {
       "Content-Type": "application/json",
     },
@@ -9,8 +9,8 @@ const createList = async (name, dueDate, userId) => {
   return await res.json();
 };
 
-const allLists = async (userId) => {
-  const res = await fetch(`/lists/${userId}`);
+const allLists = async () => {
+  const res = await fetch(`/lists`);
 
   return await res.json();
 };
@@ -32,4 +32,4 @@ const deleteLists = async (id) => {
   });
   return await res.json();
 };
-module.exports = { createList, allLists, updateLists, deleteLists };
+export  { createList, allLists, updateLists, deleteLists };

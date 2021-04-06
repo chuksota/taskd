@@ -19,12 +19,11 @@ router.get('/', asyncHandler(async(req, res)=>{
 }))
 
 router.post('/', listsValidators,  asyncHandler(async(req, res)=>{
-  const {name, dueDate, completed} = req.body
+  const {name, dueDate} = req.body
   const {userId} = req.session.auth
   const newList =  db.List.build({
     name,
     dueDate,
-    completed,
     userId
   });
 const validatorErrors = validationResult(req)

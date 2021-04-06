@@ -5,7 +5,12 @@ block content
 
     h1 taskd
 
-    div(class="hidden list" id="newListForm")
+    div(class="hidden list" id="newListForm" hidden)
+        label(for='name') Name your list!
+        input(type="text" name="name" id='listName')
+        label(for='dueDate') Choose a due date
+        input(type="text" name='dueDate' id='listDueDate' placeholder= '2021-05-25')
+        button(type='submit' id='listSubmit') Add List
     div(class="hidden task" id="newTaskForm")
 
     div(id="leftViewArea")
@@ -14,8 +19,8 @@ block content
 
 
     div(id="centerViewArea")
-        button(id="addTaskButton" class= "addBtn") Create New Button
-        div(id="listOfTask")
+        button(id="addTaskButton" class= "addBtn") Create New Task
+        div(id="listOfTasks")
 
 
     div(id="rightViewArea")
