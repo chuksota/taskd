@@ -30,10 +30,10 @@ router.post('/', listsValidators,  asyncHandler(async(req, res)=>{
 const validatorErrors = validationResult(req)
 if(validatorErrors.isEmpty()){
   await newList.save()
-  return newList
+  res.json(newList)
 } else {
   const errors = validatorErrors.array().map((error)=> error.msg)
-  res.render('/', {title: 'Create List', newList, errors})
+  res.json({errors})
 }
 }));
 
@@ -47,8 +47,7 @@ router.put('/:id(\\d+)', listsValidators, asyncHandler(async(req, res, next)=> {
     res.json({list})
   } else {
     const errors = validatorErrors.array().map((error)=> error.msg)
-    res.render('/', {title: 'Update List', list, errors})
-    next(errors)
+    res.json({errors})
   }
 }));
 
@@ -60,8 +59,7 @@ router.delete('/:id(\\d+)', asyncHandler(async(req, res, next)=>{
     res.status(204).end()
   } else {
     const errors = validatorErrors.array().map((error)=> error.msg)
-    res.render('/', {title: 'Delete List', list, errors})
-    next(errors)
+    res.json({errors})
   }
 }))
 
