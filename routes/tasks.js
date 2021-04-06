@@ -6,7 +6,7 @@ const { check, validationResult } = require("express-validator");
 const {Task} = db;
 
 router.get('/:listId', asyncHandler(async (req, res)=> {
-    const listId = req.params.listId;
+    const listId = parseInt(req.params.listId);
     const tasks = await db.Task.findAll({where: {listId}})
 
     res.json({tasks})
@@ -22,10 +22,10 @@ const taskValidators = [
 ]
 
 router.post('/:listId', taskValidators, asyncHandler(async (req, res)=>{
-    listId = req.params.listId
-    const {description, notes, dueDate} = req.body
+    listId = parseInt(req.params.listId);
+    const {description, notes, dueDate} = req.body;
 
-    const newTask = await Task.build({description, notes, dueDate, listId})
+    const newTask = await Task.build({description, notes, dueDate, listId});
 
     const validationErrors = validationResult(req)
     if(validationErrors.isEmpty){
@@ -33,6 +33,8 @@ router.post('/:listId', taskValidators, asyncHandler(async (req, res)=>{
        res.json(newTask);
     } else {
         const errors = validatorErrors.array().map((error) => error.msg);
+        res.json({errors})
+    }
 
 }))
 
