@@ -5,7 +5,7 @@ const { asyncHandler, csrfProtection } = require("./utils");
 const { check, validationResult } = require("express-validator");
 const {Task} = db;
 
-router.get('/:listId', asyncHandler(async (req, res)=> {
+router.get('/:listId(\\d+)', asyncHandler(async (req, res)=> {
     const listId = parseInt(req.params.listId);
     const tasks = await db.Task.findAll({where: {listId}})
 
