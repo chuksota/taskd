@@ -66,4 +66,11 @@ router.put('/:id', taskValidators, asyncHandler(async (req, res) =>{
     }
 }))
 
+router.delete('/:id', asyncHandler(async (req, res) => {
+    const id = parseInt(req.params.id);
+    const task = await Task.findByPk(id);
+    await task.destory();
+    res.status(204).end();
+}))
+
 module.exports = router
