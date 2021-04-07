@@ -1,28 +1,29 @@
 extends layout.pug
 append head
     script(src="/javascripts/index.js" type="module")
+    link(rel="stylesheet" href="/stylesheets/index.css")
 block content
 
-    h1 taskd
+    div(class="main-layout")
 
-    div(class="hidden list" id="newListForm" hidden)
-        label(for='name') Name your list!
-        input(type="text" name="name" id='listName')
-        label(for='dueDate') Choose a due date
-        input(type="text" name='dueDate' id='listDueDate' placeholder= '2021-05-25')
-        button(type='submit' id='listSubmit') Add List
-    div(class="hidden task" id="newTaskForm")
+        div(class="hidden list" id="newListForm" hidden)
+            label(for='name') Name your list!
+            input(type="text" name="name" id='listName')
+            label(for='dueDate') Choose a due date
+            input(type="date" name='dueDate' id='listDueDate' placeholder= '2021-05-25')
+            button(type='submit' id='listSubmit') Add List
+        div(class="hidden task" id="newTaskForm")
 
-    div(id="leftViewArea")
-        button(id="addListButton" class= "addBtn") Create New List
-        div(id="listOfLists")
-
-
-    div(id="centerViewArea")
-        button(id="addTaskButton" class= "addBtn") Create New Task
-        div(id="listOfTasks")
+        div(id="leftViewArea" class="viewArea")
+            button(id="addListButton" class= "addBtn") Create New List
+            div(id="listOfLists")
 
 
-    div(id="rightViewArea")
-        div(id="taskNotes")
-        div(id="leaderboard")
+        div(id="centerViewArea" class= "viewArea")
+            button(id="addTaskButton" class= "addBtn") Create New Task
+            div(id="listOfTasks")
+
+
+        div(id="rightViewArea" class="viewArea")
+            div(id="taskNotes")
+            div(id="leaderboard")

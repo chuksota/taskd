@@ -1,7 +1,7 @@
 const createList = async (name, dueDate) => {
   const res = await fetch("/lists", {
     method: "POST",
-    body: JSON.stringify(name, dueDate),
+    body: JSON.stringify({ name, dueDate }),
     headers: {
       "Content-Type": "application/json",
     },
@@ -18,7 +18,7 @@ const allLists = async () => {
 const updateLists = async (name, dueDate, completed, id) => {
   const res = await fetch(`/lists/${id}`, {
     method: "PUT",
-    body: JSON.stringify(name, dueDate, completed, id),
+    body: JSON.stringify({ name, dueDate, completed, id }),
     header: {
       "Content-Type": "application/json",
     },
@@ -32,4 +32,4 @@ const deleteLists = async (id) => {
   });
   return await res.json();
 };
-export  { createList, allLists, updateLists, deleteLists };
+export { createList, allLists, updateLists, deleteLists };
