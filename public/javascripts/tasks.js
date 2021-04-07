@@ -33,7 +33,7 @@ const deleteTasks = async (id) => {
   const res = await fetch(`/tasks/${id}`, {
     method: "DELETE",
   });
-  return await res.json();
+  return;
 };
 
 export { createTask, allTasks, updateTasks, deleteTasks };

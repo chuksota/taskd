@@ -32,6 +32,6 @@ const deleteLists = async (id) => {
   const res = await fetch(`/lists/${id}`, {
     method: "DELETE",
   });
-  return await res.json();
+  return;
 };
 export { createList, allLists, updateLists, deleteLists };

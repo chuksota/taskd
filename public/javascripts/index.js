@@ -5,7 +5,7 @@ const listDiv = document.querySelector("#listOfLists");
 const taskDiv = document.querySelector("#listOfTasks");
 const editListBtn = document.querySelector("#editListButton");
 const deleteListBtn = document.querySelector("#deleteListButton");
-const editTaskBtn = document.querySelector("#deleteTaskButton");
+const editTaskBtn = document.querySelector("#editTaskButton");
 const deleteTaskBtn = document.querySelector("#deleteTaskButton");
 const createListButton = document.querySelector("#addListButton");
 const listForm = document.querySelector("#newListForm");
@@ -76,6 +76,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     const { newList } = await createList(listName.value, dueDate.value);
     listForm.setAttribute("hidden", "true");
     createListElement(newList);
+    listsContainer[newList.id] = newList;
   });
 
   editListBtn.addEventListener("click", async (event) => {
@@ -96,6 +97,23 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     currentListElement.innerHTML = list.name;
   });
 
+  deleteListBtn.addEventListener('click', async (event)=>{
+    const currentListElement = document.querySelector(`#list-${currentList}`);
+    const tasksToDelete = await allTasks(currentList)
+    const {tasks} = tasksToDelete;
+    tasks.forEach(async (task) => {
+      await deleteTasks(task.id)
+    })
+    await deleteLists(currentList);
+    currentListElement.remove();
+    taskListDiv.innerHTML = '';
+    taskNotesDiv.innerHTML = '';
+    createTaskButton.setAttribute('hidden', 'true');
+    editTaskBtn.setAttribute('hidden', 'true')
+    deleteTaskBtn.setAttribute('hidden', 'true')
+
+  })
+
   createTaskButton.addEventListener("click", (event) => {
     newTaskForm.removeAttribute("hidden");
   });
@@ -109,9 +127,13 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     );
     newTaskForm.setAttribute("hidden", "true");
     createTaskElement(newTask);
+    tasksContainer[newTask.id] = newTask;
+
   });
 
   taskDiv.addEventListener("click", async (event) => {
+    editTaskBtn.removeAttribute("hidden");
+    deleteTaskBtn.removeAttribute("hidden");
     taskNotesDiv.innerHTML = "";
     const taskIdArray = event.target.id.split("-");
     const taskId = parseInt(taskIdArray[1]);

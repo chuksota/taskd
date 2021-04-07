@@ -27,6 +27,15 @@ block content
             input(type="date" name='dueDate' id='taskDueDate' placeholder= '2021-05-25')
             button(type='submit' id='taskSubmit') Add task
 
+        div(class="hidden task" id="editTaskForm" hidden)
+            label(for='description') Enter a description for your task!
+            textarea(name="description" id='taskDescription' required)
+            label(for='notes') Enter notes for your task!
+            textarea(name="notes" id='taskNotesInput')
+            label(for='dueDate') Choose a due date
+            input(type="date" name='dueDate' id='taskDueDate' placeholder= '2021-05-25')
+            button(type='submit' id='editTaskSubmit') edit task
+
         div(id="leftViewArea" class="viewArea")
             button(id="addListButton" class= "addBtn") Create New List
             button(id="editListButton" class= "editBtn") Edit List
@@ -36,8 +45,8 @@ block content
 
         div(id="centerViewArea" class= "viewArea")
             button(id="addTaskButton" class= "addBtn" hidden) Create New Task
-            button(id="editTaskButton" class= "editBtn") Edit Task
-            button(id="deleteTaskButton" class="deleteBtn") Delete Task
+            button(id="editTaskButton" class= "editBtn" hidden) Edit Task
+            button(id="deleteTaskButton" class="deleteBtn" hidden) Delete Task
             div(id="listOfTasks")
 
 
