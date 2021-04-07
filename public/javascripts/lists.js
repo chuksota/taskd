@@ -1,10 +1,11 @@
 const createList = async (name, dueDate) => {
+  if(!dueDate) dueDate = null;
   const res = await fetch("/lists", {
     method: "POST",
-    body: JSON.stringify(name, dueDate),
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify({name, dueDate}),
   });
   return await res.json();
 };
@@ -18,8 +19,8 @@ const allLists = async () => {
 const updateLists = async (name, dueDate, completed, id) => {
   const res = await fetch(`/lists/${id}`, {
     method: "PUT",
-    body: JSON.stringify(name, dueDate, completed, id),
-    header: {
+    body: JSON.stringify({name, dueDate, completed, id}),
+    headers: {
       "Content-Type": "application/json",
     },
   });
