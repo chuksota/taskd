@@ -18,11 +18,13 @@ const allTasks = async (listId) => {
   return await res.json();
 };
 
-const updateTasks = async (description, notes, dueDate, completed, id) => {
+const updateTasks = async (description, notes, dueDate, completed,  id) => {
+  if(!notes) notes = null;
+  if(!dueDate) dueDate = null;
   const res = await fetch(`/tasks/${id}`, {
     method: "PUT",
     body: JSON.stringify({ description, notes, dueDate, completed, id }),
-    header: {
+    headers: {
       "Content-Type": "application/json",
     },
   });

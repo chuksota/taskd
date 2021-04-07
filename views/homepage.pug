@@ -26,20 +26,20 @@ block content
             label(for='dueDate') Choose a due date
             input(type="date" name='dueDate' id='taskDueDate' placeholder= '2021-05-25')
             button(type='submit' id='taskSubmit') Add task
-
         div(class="hidden task" id="editTaskForm" hidden)
             label(for='description') Enter a description for your task!
-            textarea(name="description" id='taskDescription' required)
+            textarea(name="description" id='editTaskDescription' required)
             label(for='notes') Enter notes for your task!
-            textarea(name="notes" id='taskNotesInput')
+            textarea(name="notes" id='editTaskNotesInput')
             label(for='dueDate') Choose a due date
-            input(type="date" name='dueDate' id='taskDueDate' placeholder= '2021-05-25')
-            button(type='submit' id='editTaskSubmit') edit task
+            input(type="date" name='dueDate' id='editTaskDueDate' placeholder= '2021-05-25')
+            button(type='submit' id='editTaskSubmit') Edit task
 
         div(id="leftViewArea" class="viewArea")
             button(id="addListButton" class= "addBtn") Create New List
-            button(id="editListButton" class= "editBtn") Edit List
-            button(id="deleteListButton" class="deleteBtn") Delete List
+            button(id="editListButton" class= "editBtn" hidden) Edit List
+            button(id="deleteListButton" class="deleteBtn" hidden) Delete List
+            button(id='completeListButton' class='completeBtn' hidden) Complete List
             div(id="listOfLists")
 
 
@@ -47,9 +47,11 @@ block content
             button(id="addTaskButton" class= "addBtn" hidden) Create New Task
             button(id="editTaskButton" class= "editBtn" hidden) Edit Task
             button(id="deleteTaskButton" class="deleteBtn" hidden) Delete Task
+            button(id='completeTaskButton' class='completeBtn' hidden) Complete Task
             div(id="listOfTasks")
 
 
         div(id="rightViewArea" class="viewArea")
-            div(id="taskNotes")
-            div(id="leaderboard")
+            div(id="leaderboard" hidden)
+            label(for='taskNotes' id='notesLabel' hidden) Notes:
+            div(id="taskNotes" name='taskNotes')

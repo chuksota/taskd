@@ -25,8 +25,16 @@ const taskNotesDiv = document.querySelector("#taskNotes");
 const editListName = document.querySelector("#editListName");
 const editListDueDate = document.querySelector("#editListDueDate");
 
-const editTaskForm
+const editTaskForm = document.querySelector('#editTaskForm')
+const editTaskNotesInput = document.querySelector('#editTaskNotesInput')
+const editTaskDescription = document.querySelector('#editTaskDescription')
+const editTaskDueDate = document.querySelector('#editTaskDueDate')
+const editTaskSubmitBtn = document.querySelector('#editTaskSubmit')
 
+const notesLabel = document.querySelector('#notesLabel')
+
+const completeListBtn = document.querySelector('#completeListButton')
+const completeTaskBtn = document.querySelector('#completeTaskButton')
 
 let selectedTask;
 let currentList;
@@ -58,13 +66,20 @@ window.addEventListener("DOMContentLoaded", async (event) => {
   });
 
   listDiv.addEventListener("click", async (event) => {
+    editTaskBtn.setAttribute('hidden', 'true')
+    deleteTaskBtn.setAttribute('hidden', 'true')
+    completeTaskBtn.setAttribute('hidden', 'true')
+    completeListBtn.removeAttribute('hidden')
+    editListBtn.removeAttribute('hidden')
+    deleteListBtn.removeAttribute('hidden')
+    notesLabel.setAttribute('hidden', 'true')
+    taskNotesDiv.innerHTML = ''
     taskListDiv.innerHTML = "";
     const listIdArray = event.target.id.split("-");
     const listId = parseInt(listIdArray[1]);
     currentList = listId;
     createTaskButton.removeAttribute("hidden");
     const currentTasks = await allTasks(listId);
-    console.log(listsContainer[currentList]);
     const { tasks } = currentTasks;
     tasks.forEach((task) => {
       createTaskElement(task);
@@ -92,11 +107,11 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     const { list } = await updateLists(
       editListName.value,
       editListDueDate.value,
-      currentList
+      currentList,
+      false
     );
     editListForm.setAttribute("hidden", "true");
     const currentListElement = document.querySelector(`#list-${currentList}`);
-    console.log(list);
     currentListElement.innerHTML = list.name;
   });
 
@@ -135,6 +150,8 @@ window.addEventListener("DOMContentLoaded", async (event) => {
   });
 
   taskDiv.addEventListener("click", async (event) => {
+    completeTaskBtn.removeAttribute('hidden')
+    notesLabel.removeAttribute('hidden')
     editTaskBtn.removeAttribute("hidden");
     deleteTaskBtn.removeAttribute("hidden");
     taskNotesDiv.innerHTML = "";
@@ -142,12 +159,40 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     const taskId = parseInt(taskIdArray[1]);
     selectedTask = taskId;
     const currentTask = tasksContainer[taskId];
-    const newTaskNotes = document.createElement("div");
-    newTaskNotes.innerHTML = currentTask.notes;
-    taskNotesDiv.appendChild(newTaskNotes);
+    taskNotesDiv.innerHTML = currentTask.notes;
   });
 
   editTaskBtn.addEventListener('click', (event)=> {
+    editTaskForm.removeAttribute("hidden");
+    editTaskDescription.value = tasksContainer[selectedTask].description;
+    editTaskDueDate.value = tasksContainer[selectedTask].dueDate;
+    editTaskNotesInput.value = tasksContainer[selectedTask].notes
+  });
 
-  })
+  editTaskSubmitBtn.addEventListener('click', async (event)=>{
+    const { task } = await updateTasks(
+      editTaskDescription.value,
+      editTaskNotesInput.value,
+      editTaskDueDate.value,
+      false,
+      selectedTask
+    );
+    if (!task.dueDate) task.dueDate = "";
+    tasksContainer[task.id] = task
+    editTaskForm.setAttribute("hidden", "true");
+    const currentTaskElement = document.querySelector(`#task-${selectedTask}`);
+    currentTaskElement.innerHTML = task.description + '      ' + task.dueDate;
+    const currentTask = tasksContainer[selectedTask];
+    taskNotesDiv.innerHTML = currentTask.notes;
+  });
+  deleteTaskBtn.addEventListener('click', async (event)=>{
+    await deleteTasks(selectedTask)
+    const currentTaskElement = document.querySelector(`#task-${selectedTask}`);
+    currentTaskElement.remove();
+    taskNotesDiv.innerHTML = '';
+    editTaskBtn.setAttribute('hidden', 'true');
+    deleteTaskBtn.setAttribute('hidden', 'true')
+  });
+
+
 });
