@@ -5,6 +5,7 @@ const listDiv = document.querySelector("#listOfLists");
 const taskDiv = document.querySelector('#listOfTasks')
 
 let currentList;
+let tasksContainer = {}
 
 function createListElement(list){
 const listName = document.createElement("div");
@@ -21,6 +22,7 @@ function createTaskElement(task){
   taskDiv.appendChild(taskDisplay)
 }
 
+
 window.addEventListener("DOMContentLoaded", async (event) => {
   const currentLists = await allLists();
   const {lists} = currentLists
@@ -36,9 +38,12 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     currentList = listId;
     createTaskButton.removeAttribute('hidden');
     const currentTasks = await allTasks(listId)
+    console.log(currentTasks)
     const {tasks} = currentTasks
     tasks.forEach((task) => {
      createTaskElement(task);
+     tasksContainer[task.id] = task
+     console.log(tasksContainer)
     });
   });
   const createListButton = document.querySelector('#addListButton')
@@ -59,7 +64,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 
   const createTaskButton = document.querySelector('#addTaskButton');
   const newTaskForm = document.querySelector('#newTaskForm')
-  
+
   createTaskButton.addEventListener('click', (event)=> {
       newTaskForm.removeAttribute('hidden')
   })
@@ -68,16 +73,23 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 
   taskSubmit.addEventListener('click', async (event)=> {
     const taskDescription = document.querySelector('#taskDescription').value;
-    const taskNotes = document.querySelector('#taskNotes').value;
+    const taskNotes = document.querySelector('#taskNotesInput').value;
     const taskDueDate = document.querySelector('#taskDueDate').value;
 
     const {newTask} = await createTask(taskDescription, taskNotes, taskDueDate, currentList)
     console.log(newTask);
     newTaskForm.setAttribute('hidden', 'true')
     createTaskElement(newTask)
-
+  })
+  const taskNotesDiv = document.querySelector('#taskNotes')
+  taskDiv.addEventListener('click', async (event)=> {
+    taskNotesDiv.innerHTML = ''
+    const taskIdArray = event.target.id.split('-')
+    const taskId = parseInt(taskIdArray[1])
+    const currentTask = tasksContainer[taskId]
+    const newTaskNotes = document.createElement('div')
+    newTaskNotes.innerHTML = currentTask.notes
+    taskNotesDiv.appendChild(newTaskNotes)
   })
 
 });
-
-
