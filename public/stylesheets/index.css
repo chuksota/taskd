@@ -55,7 +55,35 @@ button {
   background-color: honeydew;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 #newTaskForm {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 10px;
+  position: absolute;
+  justify-content: center;
+  padding: 5px;
+  background-color: honeydew;
+}
+
+#editTaskForm {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 10px;
+  position: absolute;
+  justify-content: center;
+  padding: 5px;
+  background-color: honeydew;
+}
+
+#editListForm {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;

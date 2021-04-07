@@ -6,19 +6,21 @@ block content
 
     div(class="main-layout")
 
-        div(class="hidden list" id="newListForm" hidden)
+        div(class="hidden list" id="newListForm")
             label(for='name') Name your list!
             input(type="text" name="name" id='listName')
             label(for='dueDate') Choose a due date
             input(type="date" name='dueDate' id='listDueDate' placeholder= '2021-05-25')
             button(type='submit' id='listSubmit') Add List
-        div(class="hidden list" id="editListForm" hidden)
+            button(id="newListCancel" class="cancel") Cancel
+        div(class="hidden list" id="editListForm" )
             label(for='name') Name your list!
             input(type="text" name="name" id='editListName')
             label(for='dueDate') Choose a due date
             input(type="date" name='dueDate' id='editListDueDate' placeholder= '2021-05-25')
             button(type='submit' id='updateList') Update List
-        div(class="hidden task" id="newTaskForm" hidden)
+            button(id="updateListCancel" class="cancel") Cancel
+        div(class="hidden task" id="newTaskForm" )
             label(for='description') Enter a description for your task!
             textarea(name="description" id='taskDescription' required)
             label(for='notes') Enter notes for your task!
@@ -26,7 +28,8 @@ block content
             label(for='dueDate') Choose a due date
             input(type="date" name='dueDate' id='taskDueDate' placeholder= '2021-05-25')
             button(type='submit' id='taskSubmit') Add task
-        div(class="hidden task" id="editTaskForm" hidden)
+            button(id="newTaskCancel" class="cancel") Cancel
+        div(class="hidden task" id="editTaskForm" )
             label(for='description') Enter a description for your task!
             textarea(name="description" id='editTaskDescription' required)
             label(for='notes') Enter notes for your task!
@@ -34,6 +37,7 @@ block content
             label(for='dueDate') Choose a due date
             input(type="date" name='dueDate' id='editTaskDueDate' placeholder= '2021-05-25')
             button(type='submit' id='editTaskSubmit') Edit task
+            button(id="editTaskCancel" class="cancel") Cancel
 
         div(id="leftViewArea" class="viewArea")
             button(id="addListButton" class= "addBtn") Create New List

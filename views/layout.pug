@@ -5,20 +5,19 @@ html
       meta(charset='utf-8')
       meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
       title="taskd"
-      link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh' crossorigin='anonymous')
       link(rel='stylesheet' href='/stylesheets/reset.css')
 
   body
-    nav(class='navbar navbar-expand-lg navbar-dark bg-primary')
+    nav(class='navbar')
       a(class='navbar-brand' href='/') taskd
       if locals.authenticated
-        span(class='navbar-text px-4') Welcome  #{user.userName}
-        form(class='form-inline pr-4' action='/logout' method="POST")
-          button(class='btn btn-sm btn-warning' type='submit') Log Out
+        span(class='welcome-msg') Welcome  #{user.userName}
+        form(class='logout-form' action='/logout' method="POST")
+          button(class='logoutBtn' type='submit') Log Out
       else
-        span(class='navbar-text px-4')
-          form(action="/demo" method="post")
-            a(class='btn btn-sm btn-dark mr-2' href='login') Log in
-            a(class='btn btn-sm btn-dark mr-2' href='signup') Sign Up
-            button(type='submit' class='btn btn-sm btn-dark mr-2') Demo
+        span(class='navbar-span')
+          form(action="/demo" class="splash-page-button-form" method="post")
+            a(class='login-link' href='login') Log in
+            a(class='sign-up-link' href='signup') Sign Up
+            button(type='submit' class='demo-button') Demo
     block content

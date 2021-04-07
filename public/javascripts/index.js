@@ -36,8 +36,10 @@ const notesLabel = document.querySelector("#notesLabel");
 const completeListBtn = document.querySelector("#completeListButton");
 const completeTaskBtn = document.querySelector("#completeTaskButton");
 
-const listSummaryLabel = document.querySelector('#listSummaryLabel');
-const listSummary = document.querySelector('#listSummary');
+const listSummaryLabel = document.querySelector("#listSummaryLabel");
+const listSummary = document.querySelector("#listSummary");
+
+const cancelBtns = document.querySelectorAll(".cancel");
 
 let selectedTask;
 let currentList;
@@ -51,7 +53,7 @@ function createListElement(list) {
   const listName = document.createElement("div");
   listName.innerHTML = list.name;
   listName.setAttribute("id", `list-${list.id}`);
-  if(list.completed) listName.classList.add('completed')
+  if (list.completed) listName.classList.add("completed");
 
   listDiv.appendChild(listName);
 }
@@ -60,13 +62,22 @@ function createTaskElement(task) {
   const taskDisplay = document.createElement("div");
   taskDisplay.setAttribute("id", `task-${task.id}`);
   if (!task.dueDate) task.dueDate = "";
-  taskDisplay.innerHTML = task.description + " " + task.dueDate.slice(0,10);
-  if (task.completed) taskDisplay.classList.add('completed')
+  taskDisplay.innerHTML = task.description + " " + task.dueDate.slice(0, 10);
+  if (task.completed) taskDisplay.classList.add("completed");
 
   taskDiv.appendChild(taskDisplay);
 }
 
 window.addEventListener("DOMContentLoaded", async (event) => {
+  cancelBtns.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      newTaskForm.classList.add("hidden");
+      listForm.classList.add("hidden");
+      editTaskForm.classList.add("hidden");
+      editListForm.classList.add("hidden");
+    });
+  });
+
   const currentLists = await allLists();
   const { lists } = currentLists;
   lists.forEach((list) => {
@@ -76,7 +87,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 
   listDiv.addEventListener("mouseup", async (event) => {
     if (!event.target.id) return;
-    
+
     editTaskBtn.setAttribute("hidden", "true");
 
     deleteTaskBtn.setAttribute("hidden", "true");
@@ -86,8 +97,8 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 
     notesLabel.setAttribute("hidden", "true");
 
-    listSummaryLabel.removeAttribute('hidden');
-    listSummary.removeAttribute('hidden');
+    listSummaryLabel.removeAttribute("hidden");
+    listSummary.removeAttribute("hidden");
 
     tasksCounter = 0;
     completedTasks = 0;
@@ -97,7 +108,8 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     const listIdArray = event.target.id.split("-");
     const listId = parseInt(listIdArray[1]);
     currentList = listId;
-    if(!listsContainer[currentList].completed) editListBtn.removeAttribute("hidden");
+    if (!listsContainer[currentList].completed)
+      editListBtn.removeAttribute("hidden");
     createTaskButton.removeAttribute("hidden");
     const currentTasks = await allTasks(listId);
     const { tasks } = currentTasks;
@@ -105,14 +117,15 @@ window.addEventListener("DOMContentLoaded", async (event) => {
       createTaskElement(task);
       tasksContainer[task.id] = task;
       tasksCounter++;
-      if(task.completed) completedTasks++;
+      if (task.completed) completedTasks++;
     });
-    listSummary.innerHTML = `Tasks: ${tasksCounter} Tasks Completed: ${completedTasks}`
+    listSummary.innerHTML = `Tasks: ${tasksCounter} Tasks Completed: ${completedTasks}`;
 
     let currentListDueDate = listsContainer[currentList].dueDate;
 
     if (currentListDueDate) {
-      listSummary.innerHTML = listSummary.innerHTML + ` Due Date: ${currentListDueDate.slice(0,10)}`
+      listSummary.innerHTML =
+        listSummary.innerHTML + ` Due Date: ${currentListDueDate.slice(0, 10)}`;
     }
   });
 
@@ -127,20 +140,22 @@ window.addEventListener("DOMContentLoaded", async (event) => {
   });
 
   createListButton.addEventListener("click", async (event) => {
-    listForm.removeAttribute("hidden");
+    listForm.classList.remove("hidden");
+    dueDate.value = "";
+    listName.value = "";
   });
 
   listSubmitButton.addEventListener("click", async (event) => {
     const { newList } = await createList(listName.value, dueDate.value);
-    listForm.setAttribute("hidden", "true");
+    listForm.classList.add("hidden");
     createListElement(newList);
     listsContainer[newList.id] = newList;
   });
 
   editListBtn.addEventListener("click", async (event) => {
-    editListForm.removeAttribute("hidden");
+    editListForm.classList.remove("hidden");
     editListName.value = listsContainer[currentList].name;
-    editListDueDate.value = listsContainer[currentList].dueDate.slice(0,10);
+    editListDueDate.value = listsContainer[currentList].dueDate.slice(0, 10);
     // date not pre populating
   });
   editListSubmit.addEventListener("click", async (event) => {
@@ -150,7 +165,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
       currentList,
       false
     );
-    editListForm.setAttribute("hidden", "true");
+    editListForm.classList.add("hidden");
     const currentListElement = document.querySelector(`#list-${currentList}`);
     currentListElement.innerHTML = list.name;
   });
@@ -172,7 +187,10 @@ window.addEventListener("DOMContentLoaded", async (event) => {
   });
 
   createTaskButton.addEventListener("click", (event) => {
-    newTaskForm.removeAttribute("hidden");
+    newTaskForm.classList.remove("hidden");
+    taskDescription.value = "";
+    taskDueDate.value = "";
+    taskNotes.value = "";
   });
 
   taskSubmit.addEventListener("click", async (event) => {
@@ -182,41 +200,40 @@ window.addEventListener("DOMContentLoaded", async (event) => {
       taskDueDate.value,
       currentList
     );
-    newTaskForm.setAttribute("hidden", "true");
+    newTaskForm.classList.add("hidden");
     createTaskElement(newTask);
     tasksContainer[newTask.id] = newTask;
 
-
     tasksCounter++;
 
-    listSummary.innerHTML = `Tasks: ${tasksCounter} Tasks Completed: ${completedTasks}`
+    listSummary.innerHTML = `Tasks: ${tasksCounter} Tasks Completed: ${completedTasks}`;
 
     let currentListDueDate = listsContainer[currentList].dueDate;
 
     if (currentListDueDate) {
-      listSummary.innerHTML = listSummary.innerHTML + ` Due Date: ${currentListDueDate.slice(0, 10)}`
+      listSummary.innerHTML =
+        listSummary.innerHTML + ` Due Date: ${currentListDueDate.slice(0, 10)}`;
     }
-
   });
 
   taskDiv.addEventListener("click", async (event) => {
     completeTaskBtn.removeAttribute("hidden");
     notesLabel.removeAttribute("hidden");
-    
+
     deleteTaskBtn.removeAttribute("hidden");
     taskNotesDiv.innerHTML = "";
     const taskIdArray = event.target.id.split("-");
     const taskId = parseInt(taskIdArray[1]);
     selectedTask = taskId;
     const currentTask = tasksContainer[taskId];
-    if(!currentTask.completed) editTaskBtn.removeAttribute("hidden");
+    if (!currentTask.completed) editTaskBtn.removeAttribute("hidden");
     taskNotesDiv.innerHTML = currentTask.notes;
   });
 
   editTaskBtn.addEventListener("click", (event) => {
-    editTaskForm.removeAttribute("hidden");
+    editTaskForm.classList.remove("hidden");
     editTaskDescription.value = tasksContainer[selectedTask].description;
-    editTaskDueDate.value = tasksContainer[selectedTask].dueDate.slice(0,10);
+    editTaskDueDate.value = tasksContainer[selectedTask].dueDate.slice(0, 10);
     editTaskNotesInput.value = tasksContainer[selectedTask].notes;
   });
 
@@ -230,38 +247,38 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     );
     if (!task.dueDate) task.dueDate = "";
     tasksContainer[task.id] = task;
-    editTaskForm.setAttribute("hidden", "true");
+    editTaskForm.classList.add("hidden");
     const currentTaskElement = document.querySelector(`#task-${selectedTask}`);
-    currentTaskElement.innerHTML = task.description + "      " + task.dueDate.slice(0,10);
+    currentTaskElement.innerHTML =
+      task.description + "      " + task.dueDate.slice(0, 10);
     const currentTask = tasksContainer[selectedTask];
     taskNotesDiv.innerHTML = currentTask.notes;
   });
-
 
   deleteTaskBtn.addEventListener("click", async (event) => {
     const task = tasksContainer[selectedTask];
     await deleteTasks(selectedTask);
     const currentTaskElement = document.querySelector(`#task-${selectedTask}`);
     currentTaskElement.remove();
-    
+
     taskNotesDiv.innerHTML = "";
     editTaskBtn.setAttribute("hidden", "true");
     deleteTaskBtn.setAttribute("hidden", "true");
-    completeTaskBtn.setAttribute('hidden', 'true');
+    completeTaskBtn.setAttribute("hidden", "true");
 
-    if(task.completed) {
+    if (task.completed) {
       completedTasks--;
     }
     tasksCounter--;
 
-    listSummary.innerHTML = `Tasks: ${tasksCounter} Tasks Completed: ${completedTasks}`
+    listSummary.innerHTML = `Tasks: ${tasksCounter} Tasks Completed: ${completedTasks}`;
 
     let currentListDueDate = listsContainer[currentList].dueDate;
 
     if (currentListDueDate) {
-      listSummary.innerHTML = listSummary.innerHTML + ` Due Date: ${currentListDueDate.slice(0, 10)}`
+      listSummary.innerHTML =
+        listSummary.innerHTML + ` Due Date: ${currentListDueDate.slice(0, 10)}`;
     }
-
   });
 
   completeTaskBtn.addEventListener("click", async (event) => {
@@ -281,13 +298,13 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 
     completedTasks++;
 
-
-    listSummary.innerHTML = `Tasks: ${tasksCounter} Tasks Completed: ${completedTasks}`
+    listSummary.innerHTML = `Tasks: ${tasksCounter} Tasks Completed: ${completedTasks}`;
 
     let currentListDueDate = listsContainer[currentList].dueDate;
 
     if (currentListDueDate) {
-      listSummary.innerHTML = listSummary.innerHTML + ` Due Date: ${currentListDueDate.slice(0, 10)}`
+      listSummary.innerHTML =
+        listSummary.innerHTML + ` Due Date: ${currentListDueDate.slice(0, 10)}`;
     }
   });
 });
