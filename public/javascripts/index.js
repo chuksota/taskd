@@ -40,8 +40,11 @@ window.addEventListener("DOMContentLoaded", async (event) => {
   listSubmitButton.addEventListener("click", async (event) => {
     const listName = document.querySelector("#listName").value;
     const dueDate = document.querySelector("#listDueDate").value;
-    const newerList = await createList(listName, dueDate);
-    createListElement(newerList);
-    listForm.setAttribute("hidden", true);
+
+    const { newList } = await createList(listName, dueDate);
+    // const {newList} = newerList;
+    listForm.setAttribute("hidden", "true");
+    console.log(newList);
+    createListElement(newList);
   });
 });
