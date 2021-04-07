@@ -21,16 +21,15 @@ const taskValidators = [
     check('notes').isLength({max: 500}).withMessage('notes cannot be more than 500 characters'),
 ]
 
-router.post('/:listId(\\d+)', taskValidators, asyncHandler(async (req, res)=>{
-    listId = parseInt(req.params.listId);
-    const {description, notes, dueDate} = req.body;
+router.post('/', taskValidators, asyncHandler(async (req, res)=>{ 
+    const {description, notes, dueDate, listId} = req.body;
 
     const newTask = await Task.build({description, notes, dueDate, listId});
 
     const validationErrors = validationResult(req)
     if(validationErrors.isEmpty()){
        await newTask.save()
-       res.json(newTask);
+       res.json({newTask});
     } else {
         const errors = validatorErrors.array().map((error) => error.msg);
         res.json({errors})
