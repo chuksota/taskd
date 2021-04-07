@@ -25,6 +25,9 @@ const taskNotesDiv = document.querySelector("#taskNotes");
 const editListName = document.querySelector("#editListName");
 const editListDueDate = document.querySelector("#editListDueDate");
 
+const editTaskForm
+
+
 let selectedTask;
 let currentList;
 let tasksContainer = {};
@@ -143,4 +146,8 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     newTaskNotes.innerHTML = currentTask.notes;
     taskNotesDiv.appendChild(newTaskNotes);
   });
+
+  editTaskBtn.addEventListener('click', (event)=> {
+
+  })
 });
