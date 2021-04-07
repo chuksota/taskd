@@ -12,6 +12,12 @@ block content
             label(for='dueDate') Choose a due date
             input(type="date" name='dueDate' id='listDueDate' placeholder= '2021-05-25')
             button(type='submit' id='listSubmit') Add List
+        div(class="hidden list" id="editListForm" hidden)
+            label(for='name') Name your list!
+            input(type="text" name="name" id='editListName')
+            label(for='dueDate') Choose a due date
+            input(type="date" name='dueDate' id='editListDueDate' placeholder= '2021-05-25')
+            button(type='submit' id='updateList') Update List
         div(class="hidden task" id="newTaskForm" hidden)
             label(for='description') Enter a description for your task!
             textarea(name="description" id='taskDescription' required)
@@ -23,11 +29,15 @@ block content
 
         div(id="leftViewArea" class="viewArea")
             button(id="addListButton" class= "addBtn") Create New List
+            button(id="editListButton" class= "editBtn") Edit List
+            button(id="deleteListButton" class="deleteBtn") Delete List
             div(id="listOfLists")
 
 
         div(id="centerViewArea" class= "viewArea")
             button(id="addTaskButton" class= "addBtn" hidden) Create New Task
+            button(id="editTaskButton" class= "editBtn") Edit Task
+            button(id="deleteTaskButton" class="deleteBtn") Delete Task
             div(id="listOfTasks")
 
 

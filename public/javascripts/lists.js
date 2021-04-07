@@ -1,11 +1,11 @@
 const createList = async (name, dueDate) => {
-  if(!dueDate) dueDate = null;
+  if (!dueDate) dueDate = null;
   const res = await fetch("/lists", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({name, dueDate}),
+    body: JSON.stringify({ name, dueDate }),
   });
   return await res.json();
 };
@@ -16,10 +16,11 @@ const allLists = async () => {
   return await res.json();
 };
 
-const updateLists = async (name, dueDate, completed, id) => {
+const updateLists = async (name, dueDate, id) => {
+  if (!dueDate) dueDate = null;
   const res = await fetch(`/lists/${id}`, {
     method: "PUT",
-    body: JSON.stringify({name, dueDate, completed, id}),
+    body: JSON.stringify({ name, dueDate, id }),
     headers: {
       "Content-Type": "application/json",
     },
@@ -33,4 +34,4 @@ const deleteLists = async (id) => {
   });
   return await res.json();
 };
-export  { createList, allLists, updateLists, deleteLists };
+export { createList, allLists, updateLists, deleteLists };
