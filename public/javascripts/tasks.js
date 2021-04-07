@@ -1,7 +1,7 @@
 const createTask = async (description, notes, dueDate, listId) => {
   const res = await fetch("/tasks", {
     method: "POST",
-    body: JSON.stringify(description, notes, dueDate, listId),
+    body: JSON.stringify({description, notes, dueDate, listId}),
     headers: {
       "Content-Type": "application/json",
     },
@@ -19,7 +19,7 @@ const allTasks = async (listId) => {
 const updateTasks = async (description, notes, dueDate, completed, id) => {
   const res = await fetch(`/tasks/${id}`, {
     method: "PUT",
-    body: JSON.stringify(description, notes, dueDate, completed, id),
+    body: JSON.stringify({description, notes, dueDate, completed, id}),
     header: {
       "Content-Type": "application/json",
     },

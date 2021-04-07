@@ -19,7 +19,7 @@ const allLists = async () => {
 const updateLists = async (name, dueDate, completed, id) => {
   const res = await fetch(`/lists/${id}`, {
     method: "PUT",
-    body: JSON.stringify(name, dueDate, completed, id),
+    body: JSON.stringify({name, dueDate, completed, id}),
     headers: {
       "Content-Type": "application/json",
     },
