@@ -98,3 +98,20 @@ button {
 .completed {
   background-color: rgba(82, 220, 82, 0.29);
 }
+
+
+.searchBarInput {
+  height: 25px;
+  width: 250px;
+  color: white;
+  background-color:lightblue;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 10px;
+  position: relative;
+  padding-right: 10px;
+}
+
+.searchTaskBtn {
+  margin-right: 50px;
+}
