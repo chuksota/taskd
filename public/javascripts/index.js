@@ -208,7 +208,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
       false
     );
 
-    listsContainer[list.id] = list
+    listsContainer[list.id] = list;
     editListForm.classList.add("hidden");
     const currentListElement = document.querySelector(`#list-${currentList}`);
     currentListElement.innerHTML = list.name;
