@@ -1,6 +1,18 @@
-# Express Project Skeleton
+# taskd
 
-Use this project skeleton as a starting point for structuring your app. Things to note
-* Sequelize configuration has not yet been added -- you will need to set that up yourself
-* You may find yourself wanting to use javascript -- js files can be added in `public/javascripts` and should be appended to the Pug templates as needed
-* CSS files can go in `public/stylesheets` and also will need to be added to Pug templates
+taskd, a Remember The Milk  clone, is a todo-list application that allows users to create todo-lists and tasks in order to stay productive. In addition, taskd allows users to keep up with their 'productivity' by keeping a productivity score of their completed tasks for the day while also creating a fun and interactive environment by comparing that score to their friends. 
+
+Technologies Used:
+
+taskd utilizes an express backend with an HTML and CSS frontend. 
+
+AWS S3 is used to store the uploaded posts
+
+Features and Functionality
+User Authentication - Users are able to log in and have access to features
+
+Lists - Authenticated users are able to create, name, rename, and add due dates to any list of their choosing. 
+
+Tasks - Authenticated users have the ability to create and add tasks to any list that they've previously created. Users are also able to edit any task, and also mark any task they've finished as completed.
+
+
