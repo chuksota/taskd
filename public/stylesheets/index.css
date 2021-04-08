@@ -19,13 +19,20 @@ h1 {
 
 #rightViewArea {
   grid-area: rightViewArea;
+  font-size: 20px;
+  text-align: left;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  margin: 5px;
+  padding: 5px;
+  display: grid;
+  grid-template-rows: 1fr 2fr;
 }
 
 .viewArea {
   border: 2px solid black;
   border-radius: 5px;
-  margin-right: .5em;
-  margin-top: .5em ;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
 }
 
 #listOfLists {
@@ -34,6 +41,28 @@ h1 {
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   margin: 5px;
   padding: 5px;
+}
+
+#listOfTasks {
+  font-size: 20px;
+  text-align: left;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  margin: 5px;
+  padding: 5px;
+}
+#listSummaryLabel {
+  margin-bottom: 0.5em;
+  padding-bottom: 2em;
+}
+
+#listSummary {
+  position: relative;
+  text-align: center;
+  top: 30%;
+  bottom: 70%;
+}
+
+#taskNotes {
 }
 
 button {
@@ -45,7 +74,6 @@ button {
   font-weight: bold;
   color: whitesmoke;
 }
-
 
 .hidden {
   visibility: hidden;
@@ -63,11 +91,9 @@ button {
   background-color: honeydew;
 }
 
-
 .completed {
   text-decoration: line-through;
 }
-
 
 .searchBarInput {
   height: 25px;
@@ -85,14 +111,15 @@ button {
   margin-right: 50px;
 }
 
-#sign-up-title  {
+#sign-up-title {
   text-align: center;
   font-size: 4em;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   color: #5e6472;
 }
 
-.sign-up-form{
+.sign-up-form {
   display: flex;
   /* justify-content: space-between; */
   flex-direction: column;
@@ -114,26 +141,37 @@ button {
 .sign-up-input {
   height: 1.7em;
   font-size: 1.2em;
-  margin-top: .5em;
-  margin-bottom: .5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
   border-radius: 5px;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
-#sign-button{
+#sign-button {
   height: 2em;
   width: 50%;
   align-self: center;
 }
 
 .selected {
-  background-color:rgba(255, 166, 158, 0.5);
+  background-color: rgba(255, 166, 158, 0.5);
 }
 
 #listOfLists > div {
   border-radius: 5px;
   border: 2px solid black;
   text-align: center;
-  margin-top: .3em;
+  margin-top: 0.3em;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+#listOfTasks > div {
+  text-align: left;
+  margin-top: 0.3em;
+  border-bottom: 2px dashed rgba(0, 0, 0, 0.6);
+}
+
+.tasking::before {
+  content: "•";
 }

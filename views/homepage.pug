@@ -38,7 +38,7 @@ block content
             input(type="date" name='dueDate' id='editTaskDueDate' placeholder= '2021-05-25')
             button(type='submit' id='editTaskSubmit') Edit task
             button(id="editTaskCancel" class="cancel") Cancel
-       
+
 
 
         div(id="leftViewArea" class="viewArea")
@@ -60,6 +60,6 @@ block content
         div(id="rightViewArea" class="viewArea")
             div(id="leaderboard" hidden)
             div(id='listSummaryLabel' hidden) List Summary:
-            div(id='listSummary' hidden)
-            label(for='taskNotes' id='notesLabel' hidden) Notes:
-            div(id="taskNotes" name='taskNotes')
+                div(id='listSummary' hidden)
+            div(for='taskNotes' id='notesLabel' hidden) Notes:
+                div(id="taskNotes" name='taskNotes')
