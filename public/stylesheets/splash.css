@@ -84,7 +84,7 @@ nav {
 }
 
 body {
-  background-color: #e0fbfc;
+  background-color: #e5e5e5;
 }
 
 #tag-line {
@@ -110,8 +110,8 @@ body {
   animation-name: fade;
   animation-iteration-count: infinite;
   animation-duration: 10s;
-  height: 500px;
-  width: 500px;
+  height: 15em;
+  width: 15em;
 }
 
 @-webkit-keyframes fade {

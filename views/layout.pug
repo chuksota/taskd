@@ -13,8 +13,8 @@ html
 
   body
     nav(class='navbar')
-      a(class='navbar-brand' id="logo" href='/') taskd
       if locals.authenticated
+        a(class='navbar-brand' id="logo" href='/homepage') taskd
         div(class="welcome")
           input(type="text" class='searchBarInput' id='searchBar')
           button(class="searchBtn" id='searchListBtn' type="submit") Search Lists
@@ -25,6 +25,7 @@ html
             button(class='logoutBtn' type='submit') Log Out
 
       else
+        a(class='navbar-brand' id="logo" href='/') taskd
         div(class='navbar-span')
           a(class='login-link' href='login') Login
           a(class='sign-up-link' href='signup') Sign-Up

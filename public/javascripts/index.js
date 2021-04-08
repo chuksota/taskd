@@ -72,7 +72,9 @@ let listsContainer = {};
 let tasksCounter = 0;
 let completedTasks = 0;
 
-
+// previous selected elements---------------------------------------------------
+let previousListElement;
+let previousTaskElement;
 //create element functions------------------------------------------------------
 function createListElement(list) {
   const listName = document.createElement("div");
@@ -87,8 +89,10 @@ function createTaskElement(task) {
 
   const taskDisplay = document.createElement("div");
   taskDisplay.setAttribute("id", `task-${task.id}`);
-  if (!task.dueDate) task.dueDate = "";
-  taskDisplay.innerHTML = task.description + " " + task.dueDate.slice(0, 10);
+
+  taskDisplay.innerHTML = task.description
+  if (task.dueDate) taskDisplay.innerHTML += " ---Due: " + task.dueDate.slice(0, 10);
+
   if (task.completed) taskDisplay.classList.add("completed");
 
   taskDiv.appendChild(taskDisplay);
@@ -120,8 +124,11 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 
   //list selector listener------------------------------------------------------
   listDiv.addEventListener("mouseup", async (event) => {
-    if (!event.target.id) return;
-
+    if (!event.target.id.startsWith('list-')) return;
+    if(previousListElement) previousListElement.classList.remove('selected')
+    let listElement = document.querySelector(`#${event.target.id}`)
+    listElement.classList.add('selected')
+    previousListElement = listElement
     //hide task buttons when selecting a new list
     editTaskBtn.setAttribute("hidden", "true");
     deleteTaskBtn.setAttribute("hidden", "true");
@@ -275,6 +282,10 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 
   //task selector listener------------------------------------------------------
   taskDiv.addEventListener("click", async (event) => {
+    if(previousTaskElement) previousTaskElement.classList.remove('selected')
+    let taskElement = document.querySelector(`#${event.target.id}`)
+    taskElement.classList.add('selected')
+    previousTaskElement = taskElement
     completeTaskBtn.removeAttribute("hidden");
     notesLabel.removeAttribute("hidden");
 
@@ -311,9 +322,8 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     editTaskForm.classList.add("hidden");
     const currentTaskElement = document.querySelector(`#task-${selectedTask}`);
 
-    currentTaskElement.innerHTML =
-      task.description + "      " + task.dueDate.slice(0, 10);
-
+    currentTaskElement.innerHTML = task.description
+    if(task.dueDate) currentTaskElement.innerHTML +=  " ---Due: " + task.dueDate.slice(0, 10);
     const currentTask = tasksContainer[selectedTask];
     taskNotesDiv.innerHTML = currentTask.notes;
   });
@@ -410,6 +420,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
   });
 
   resetListofLists.addEventListener('click', async (event)=> {
+    searchBarInput.value = ''
     taskDiv.innerHTML = ''
     listDiv.innerHTML = ''
     taskNotesDiv.innerHTML = ''

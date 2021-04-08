@@ -23,6 +23,9 @@ h1 {
 
 .viewArea {
   border: 2px solid black;
+  border-radius: 5px;
+  margin-right: .5em;
+  margin-top: .5em ;
 }
 
 #listOfLists {
@@ -48,7 +51,7 @@ button {
   visibility: hidden;
 }
 
-.form { 
+.form {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -70,7 +73,7 @@ button {
   height: 25px;
   width: 250px;
   color: white;
-  background-color:lightblue;
+  background-color: #e5e5e5;
   box-sizing: border-box;
   border: 2px solid black;
   border-radius: 10px;
@@ -121,4 +124,16 @@ button {
   height: 2em;
   width: 50%;
   align-self: center;
+}
+
+.selected {
+  background-color:rgba(255, 166, 158, 0.5);
+}
+
+#listOfLists > div {
+  border-radius: 5px;
+  border: 2px solid black;
+  text-align: center;
+  margin-top: .3em;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
 }

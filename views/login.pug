@@ -4,10 +4,9 @@ block content
     ul
       each error in errors
         li= error
-  form(action='/login' method='POST' class='form-inline pr-4')
+  h1(id="sign-up-title") Log in here!
+  form(action='/login' method='POST' class='sign-up-form')
     input(type='hidden' name='_csrf' value=csrfToken)
-    label(for='email') Email
-    input(type='email' name='email')
-    label(for='password') Password
-    input(type="password" name='password')
-    button(type='submit') Log in
+    input(type='email' name='email' class='sign-up-input' placeholder='Email')
+    input(type="password" name='password' class='sign-up-input' placeholder='Password')
+    button(type='submit' id="sign-button") Log in
