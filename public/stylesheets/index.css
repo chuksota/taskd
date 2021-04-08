@@ -70,6 +70,7 @@ button {
   background-color: #ee6c4d;
   font-weight: bold;
   color: whitesmoke;
+  cursor: pointer;
 }
 
 .hidden {
@@ -95,7 +96,7 @@ button {
 .searchBarInput {
   height: 25px;
   width: 250px;
-  color: white;
+  color: black;
   background-color: #e5e5e5;
   box-sizing: border-box;
   border: 2px solid black;
@@ -156,14 +157,16 @@ button {
 }
 
 #listOfLists > div {
+  cursor: pointer;
   border-radius: 5px;
-  border: 2px solid black;
+  border: 2px solid rgba(0, 0, 0, 0.3);
   text-align: center;
   margin-top: 0.3em;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
 }
 
 #listOfTasks > div {
+  cursor: pointer;
   text-align: left;
   margin-top: 0.3em;
   border-bottom: 2px dashed rgba(0, 0, 0, 0.6);
