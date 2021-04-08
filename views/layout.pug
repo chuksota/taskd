@@ -16,11 +16,10 @@ html
       a(class='navbar-brand' id="logo" href='/') taskd
       if locals.authenticated
         div(class="welcome")
-          form(class='searchBarForm', action='/search' method='POST')
-            input(type="text" class='searchBarInput' id='searchBar')
-            button(class="searchBtn" id='searchListBtn' type="submit") Search Lists
-            button(class='searchBtn' id="searchTaskBtn" type='submit') Search Tasks
-            button(class='returnBtn' id="resetListsBtn" type='submit') Clear Search 
+          input(type="text" class='searchBarInput' id='searchBar')
+          button(class="searchBtn" id='searchListBtn' type="submit") Search Lists
+          button(class='searchBtn' id="searchTaskBtn" type='submit') Search Tasks
+          button(class='returnBtn' id="resetListsBtn" type='submit') Clear Search
           span(class='welcome-msg') Welcome  #{user.userName}
           form(class='logout-form' action='/logout' method="POST")
             button(class='logoutBtn' type='submit') Log Out

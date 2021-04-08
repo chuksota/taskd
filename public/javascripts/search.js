@@ -1,6 +1,6 @@
 const searchLists = async (name) => {
   if(!name) return;
-  const res = await fetch(`/search/list/${name}`)
+  const res = await fetch(`/search/lists/${name}`)
 
   return await res.json()
 }

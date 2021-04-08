@@ -56,8 +56,8 @@ const cancelBtns = document.querySelectorAll(".cancel");
 
 //search bar--------------------------------------------------------------------
 const searchBarInput = document.querySelector('#searchBar')
-const searchTaskBtn = document.querySelector('#searchListBtn')
-const searchListBtn = document.querySelector('#searchTaskBtn')
+const searchTaskBtn = document.querySelector('#searchTaskBtn')
+const searchListBtn = document.querySelector('#searchListBtn')
 const resetListofLists = document.querySelector('#resetListsBtn')
 
 //selected list/task id---------------------------------------------------------
@@ -378,6 +378,17 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 // search bar listeners------------------------------------------------------------
   searchListBtn.addEventListener('click', async (event)=>{
     listDiv.innerHTML = '';
+    taskDiv.innerHTML = ''
+    listDiv.innerHTML = ''
+    taskNotesDiv.innerHTML = ''
+    listSummary.innerHTML = ''
+    notesLabel.setAttribute('hidden', 'true')
+    listSummaryLabel.setAttribute('hidden', 'true')
+    editTaskBtn.setAttribute("hidden", "true");
+    deleteTaskBtn.setAttribute("hidden", "true");
+    completeTaskBtn.setAttribute("hidden", "true");
+    createTaskButton.setAttribute('hidden', 'true')
+    const searchTarget = searchBarInput.value
     const listSomething = await searchLists(searchTarget)
     const {foundLists} = listSomething
     foundLists.forEach((list) => {
@@ -389,10 +400,11 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 
   searchTaskBtn.addEventListener('click', async (event)=>{
     taskDiv.innerHTML = '';
+    const searchTarget = searchBarInput.value
     const taskSomething = await searchTasks(searchTarget)
     const {foundTasks} = taskSomething
     foundTasks.forEach((task)=>{
-      createTaskElement(list);
+      createTaskElement(task);
       tasksContainer[task.id] = task;
     })
   });
@@ -400,10 +412,23 @@ window.addEventListener("DOMContentLoaded", async (event) => {
   resetListofLists.addEventListener('click', async (event)=> {
     taskDiv.innerHTML = ''
     listDiv.innerHTML = ''
-    for (let list in listsContainer){
+    taskNotesDiv.innerHTML = ''
+    listSummary.innerHTML = ''
+    notesLabel.setAttribute('hidden', 'true')
+    listSummaryLabel.setAttribute('hidden', 'true')
+    editTaskBtn.setAttribute("hidden", "true");
+    deleteTaskBtn.setAttribute("hidden", "true");
+    completeTaskBtn.setAttribute("hidden", "true");
+    completeListBtn.setAttribute("hidden", 'true');
+    deleteListBtn.setAttribute("hidden", 'true');
+    editListBtn.setAttribute('hidden', 'true');
+    createTaskButton.setAttribute('hidden', 'true')
+  const currentLists = await allLists();
+  const { lists } = currentLists;
+  lists.forEach((list) => {
     createListElement(list);
     listsContainer[list.id] = list;
-    }
+  });
   })
 
 });
