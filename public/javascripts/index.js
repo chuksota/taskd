@@ -1,54 +1,73 @@
 import { createTask, allTasks, updateTasks, deleteTasks } from "./tasks.js";
 import { createList, allLists, updateLists, deleteLists } from "./lists.js";
 
+//list and task display area elements
 const listDiv = document.querySelector("#listOfLists");
 const taskDiv = document.querySelector("#listOfTasks");
-const editListBtn = document.querySelector("#editListButton");
-const deleteListBtn = document.querySelector("#deleteListButton");
-const editTaskBtn = document.querySelector("#editTaskButton");
-const deleteTaskBtn = document.querySelector("#deleteTaskButton");
+
+//create lists elements---------------------------------------------------------
 const createListButton = document.querySelector("#addListButton");
 const listForm = document.querySelector("#newListForm");
-const editListForm = document.querySelector("#editListForm");
-const editListSubmit = document.querySelector("#updateList");
-const taskListDiv = document.querySelector("#listOfTasks");
 const listSubmitButton = document.querySelector("#listSubmit");
 const listName = document.querySelector("#listName");
 const dueDate = document.querySelector("#listDueDate");
+
+//create tasks elements---------------------------------------------------------
 const createTaskButton = document.querySelector("#addTaskButton");
 const newTaskForm = document.querySelector("#newTaskForm");
-const taskSubmit = document.querySelector("#taskSubmit");
 const taskDescription = document.querySelector("#taskDescription");
 const taskNotes = document.querySelector("#taskNotesInput");
 const taskDueDate = document.querySelector("#taskDueDate");
-const taskNotesDiv = document.querySelector("#taskNotes");
+const taskSubmit = document.querySelector("#taskSubmit");
+
+//edit lists elements-----------------------------------------------------------
+const editListBtn = document.querySelector("#editListButton");
+const editListForm = document.querySelector("#editListForm");
 const editListName = document.querySelector("#editListName");
 const editListDueDate = document.querySelector("#editListDueDate");
+const editListSubmit = document.querySelector("#updateList");
 
+//edit tasks elements-----------------------------------------------------------
+const editTaskBtn = document.querySelector("#editTaskButton");
 const editTaskForm = document.querySelector("#editTaskForm");
 const editTaskNotesInput = document.querySelector("#editTaskNotesInput");
 const editTaskDescription = document.querySelector("#editTaskDescription");
 const editTaskDueDate = document.querySelector("#editTaskDueDate");
 const editTaskSubmitBtn = document.querySelector("#editTaskSubmit");
 
-const notesLabel = document.querySelector("#notesLabel");
+//delete buttons----------------------------------------------------------------
+const deleteListBtn = document.querySelector("#deleteListButton");
+const deleteTaskBtn = document.querySelector("#deleteTaskButton");
 
+//complete buttons--------------------------------------------------------------
 const completeListBtn = document.querySelector("#completeListButton");
 const completeTaskBtn = document.querySelector("#completeTaskButton");
 
+//list summary elements---------------------------------------------------------
 const listSummaryLabel = document.querySelector("#listSummaryLabel");
 const listSummary = document.querySelector("#listSummary");
 
+//task notes elements-----------------------------------------------------------
+const taskNotesDiv = document.querySelector("#taskNotes");
+const notesLabel = document.querySelector("#notesLabel");
+
+//cancel buttons----------------------------------------------------------------
 const cancelBtns = document.querySelectorAll(".cancel");
 
+//selected list/task id---------------------------------------------------------
 let selectedTask;
 let currentList;
+
+//item  containers--------------------------------------------------------------
 let tasksContainer = {};
 let listsContainer = {};
 
+//tasks trackers for current list-----------------------------------------------
 let tasksCounter = 0;
 let completedTasks = 0;
 
+
+//create element functions------------------------------------------------------
 function createListElement(list) {
   const listName = document.createElement("div");
   listName.innerHTML = list.name;
@@ -59,6 +78,7 @@ function createListElement(list) {
 }
 
 function createTaskElement(task) {
+
   const taskDisplay = document.createElement("div");
   taskDisplay.setAttribute("id", `task-${task.id}`);
   if (!task.dueDate) task.dueDate = "";
@@ -68,7 +88,11 @@ function createTaskElement(task) {
   taskDiv.appendChild(taskDisplay);
 }
 
+
+//listeners start---------------------------------------------------------------
 window.addEventListener("DOMContentLoaded", async (event) => {
+
+  //cancel buttons listeners----------------------------------------------------
   cancelBtns.forEach((button) => {
     button.addEventListener("click", (event) => {
       newTaskForm.classList.add("hidden");
@@ -78,6 +102,8 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     });
   });
 
+
+  //get all the lists for user and display them---------------------------------
   const currentLists = await allLists();
   const { lists } = currentLists;
   lists.forEach((list) => {
@@ -85,18 +111,20 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     listsContainer[list.id] = list;
   });
 
+
+  //list selector listener------------------------------------------------------
   listDiv.addEventListener("mouseup", async (event) => {
     if (!event.target.id) return;
 
+    //hide task buttons when selecting a new list
     editTaskBtn.setAttribute("hidden", "true");
-
     deleteTaskBtn.setAttribute("hidden", "true");
     completeTaskBtn.setAttribute("hidden", "true");
-    completeListBtn.removeAttribute("hidden");
-    deleteListBtn.removeAttribute("hidden");
-
     notesLabel.setAttribute("hidden", "true");
 
+    //show list buttons when selecting a list
+    completeListBtn.removeAttribute("hidden");
+    deleteListBtn.removeAttribute("hidden");
     listSummaryLabel.removeAttribute("hidden");
     listSummary.removeAttribute("hidden");
 
@@ -104,13 +132,16 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     completedTasks = 0;
 
     taskNotesDiv.innerHTML = "";
-    taskListDiv.innerHTML = "";
+    taskDiv.innerHTML = "";
+
     const listIdArray = event.target.id.split("-");
     const listId = parseInt(listIdArray[1]);
     currentList = listId;
+
     if (!listsContainer[currentList].completed)
       editListBtn.removeAttribute("hidden");
     createTaskButton.removeAttribute("hidden");
+
     const currentTasks = await allTasks(listId);
     const { tasks } = currentTasks;
     tasks.forEach((task) => {
@@ -129,6 +160,8 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     }
   });
 
+
+  //complete list listener------------------------------------------------------
   completeListBtn.addEventListener("click", async (event) => {
     const list = listsContainer[currentList];
 
@@ -139,6 +172,8 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     listElement.classList.add("completed");
   });
 
+
+  //create new list listeners---------------------------------------------------
   createListButton.addEventListener("click", async (event) => {
     listForm.classList.remove("hidden");
     dueDate.value = "";
@@ -152,12 +187,19 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     listsContainer[newList.id] = newList;
   });
 
+
+  //edit list listeners---------------------------------------------------------
   editListBtn.addEventListener("click", async (event) => {
     editListForm.classList.remove("hidden");
-    editListName.value = listsContainer[currentList].name;
-    editListDueDate.value = listsContainer[currentList].dueDate.slice(0, 10);
-    // date not pre populating
+
+    let selectedList = listsContainer[currentList];
+    editListName.value = selectedList.name;
+
+    if(selectedList.dueDate){
+      editListDueDate.value = selectedList.dueDate.slice(0, 10);
+    }
   });
+
   editListSubmit.addEventListener("click", async (event) => {
     const { list } = await updateLists(
       editListName.value,
@@ -165,11 +207,15 @@ window.addEventListener("DOMContentLoaded", async (event) => {
       currentList,
       false
     );
+
+    listsContainer[list.id] = list;
     editListForm.classList.add("hidden");
     const currentListElement = document.querySelector(`#list-${currentList}`);
     currentListElement.innerHTML = list.name;
   });
 
+
+  //delete list listener--------------------------------------------------------
   deleteListBtn.addEventListener("click", async (event) => {
     const currentListElement = document.querySelector(`#list-${currentList}`);
     const tasksToDelete = await allTasks(currentList);
@@ -177,15 +223,18 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     tasks.forEach(async (task) => {
       await deleteTasks(task.id);
     });
+
     await deleteLists(currentList);
     currentListElement.remove();
-    taskListDiv.innerHTML = "";
+    taskDiv.innerHTML = "";
     taskNotesDiv.innerHTML = "";
     createTaskButton.setAttribute("hidden", "true");
     editTaskBtn.setAttribute("hidden", "true");
     deleteTaskBtn.setAttribute("hidden", "true");
   });
 
+
+  //create new task listeners---------------------------------------------------
   createTaskButton.addEventListener("click", (event) => {
     newTaskForm.classList.remove("hidden");
     taskDescription.value = "";
@@ -200,12 +249,13 @@ window.addEventListener("DOMContentLoaded", async (event) => {
       taskDueDate.value,
       currentList
     );
+
     newTaskForm.classList.add("hidden");
     createTaskElement(newTask);
     tasksContainer[newTask.id] = newTask;
 
     tasksCounter++;
-
+    
     listSummary.innerHTML = `Tasks: ${tasksCounter} Tasks Completed: ${completedTasks}`;
 
     let currentListDueDate = listsContainer[currentList].dueDate;
@@ -216,6 +266,8 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     }
   });
 
+
+  //task selector listener------------------------------------------------------
   taskDiv.addEventListener("click", async (event) => {
     completeTaskBtn.removeAttribute("hidden");
     notesLabel.removeAttribute("hidden");
@@ -230,6 +282,8 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     taskNotesDiv.innerHTML = currentTask.notes;
   });
 
+
+  //edit task listeners---------------------------------------------------------
   editTaskBtn.addEventListener("click", (event) => {
     editTaskForm.classList.remove("hidden");
     editTaskDescription.value = tasksContainer[selectedTask].description;
@@ -245,16 +299,21 @@ window.addEventListener("DOMContentLoaded", async (event) => {
       false,
       selectedTask
     );
+
     if (!task.dueDate) task.dueDate = "";
     tasksContainer[task.id] = task;
     editTaskForm.classList.add("hidden");
     const currentTaskElement = document.querySelector(`#task-${selectedTask}`);
+
     currentTaskElement.innerHTML =
       task.description + "      " + task.dueDate.slice(0, 10);
+
     const currentTask = tasksContainer[selectedTask];
     taskNotesDiv.innerHTML = currentTask.notes;
   });
 
+
+  //delete task listener--------------------------------------------------------
   deleteTaskBtn.addEventListener("click", async (event) => {
     const task = tasksContainer[selectedTask];
     await deleteTasks(selectedTask);
@@ -281,6 +340,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     }
   });
 
+  //complete task listener------------------------------------------------------
   completeTaskBtn.addEventListener("click", async (event) => {
     const task = tasksContainer[selectedTask];
 
