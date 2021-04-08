@@ -13,6 +13,7 @@ const homeRouter = require("./routes/homepage");
 const demoRouter = require("./routes/demo")
 const listsRouter = require('./routes/lists')
 const tasksRouter = require('./routes/tasks')
+const searchRouter = require('./routes/search')
 const app = express();
 
 // view engine setup
@@ -47,6 +48,7 @@ app.use("/homepage", homeRouter);
 app.use("/demo", demoRouter)
 app.use('/lists', listsRouter)
 app.use('/tasks', tasksRouter);
+app.use('/search', searchRouter)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
