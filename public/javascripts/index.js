@@ -1,6 +1,6 @@
 import { createTask, allTasks, updateTasks, deleteTasks } from "./tasks.js";
 import { createList, allLists, updateLists, deleteLists } from "./lists.js";
-
+import { searchLists, searchTasks} from "./search.js"
 //list and task display area elements
 const listDiv = document.querySelector("#listOfLists");
 const taskDiv = document.querySelector("#listOfTasks");
@@ -53,6 +53,12 @@ const notesLabel = document.querySelector("#notesLabel");
 
 //cancel buttons----------------------------------------------------------------
 const cancelBtns = document.querySelectorAll(".cancel");
+
+//search bar--------------------------------------------------------------------
+const searchBarInput = document.querySelector('#searchBar')
+const searchTaskBtn = document.querySelector('#searchListBtn')
+const searchListBtn = document.querySelector('#searchTaskBtn')
+const resetListofLists = document.querySelector('#resetListsBtn')
 
 //selected list/task id---------------------------------------------------------
 let selectedTask;
@@ -255,7 +261,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     tasksContainer[newTask.id] = newTask;
 
     tasksCounter++;
-    
+
     listSummary.innerHTML = `Tasks: ${tasksCounter} Tasks Completed: ${completedTasks}`;
 
     let currentListDueDate = listsContainer[currentList].dueDate;
@@ -367,4 +373,37 @@ window.addEventListener("DOMContentLoaded", async (event) => {
         listSummary.innerHTML + ` Due Date: ${currentListDueDate.slice(0, 10)}`;
     }
   });
+
+
+// search bar listeners------------------------------------------------------------
+  searchListBtn.addEventListener('click', async (event)=>{
+    listDiv.innerHTML = '';
+    const listSomething = await searchLists(searchTarget)
+    const {foundLists} = listSomething
+    foundLists.forEach((list) => {
+      createListElement(list);
+      listsContainer[list.id] = list;
+    });
+
+  });
+
+  searchTaskBtn.addEventListener('click', async (event)=>{
+    taskDiv.innerHTML = '';
+    const taskSomething = await searchTasks(searchTarget)
+    const {foundTasks} = taskSomething
+    foundTasks.forEach((task)=>{
+      createTaskElement(list);
+      tasksContainer[task.id] = task;
+    })
+  });
+
+  resetListofLists.addEventListener('click', async (event)=> {
+    taskDiv.innerHTML = ''
+    listDiv.innerHTML = ''
+    for (let list in listsContainer){
+    createListElement(list);
+    listsContainer[list.id] = list;
+    }
+  })
+
 });
