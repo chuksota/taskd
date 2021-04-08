@@ -5,19 +5,32 @@ html
       meta(charset='utf-8')
       meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
       title="taskd"
-      link(rel='stylesheet' href='/stylesheets/reset.css')
+      //- link(rel='stylesheet' href='/stylesheets/reset.css')
+      link(rel="stylesheet" href="/stylesheets/index.css")
+      link(rel="stylesheet" href="/stylesheets/splash.css")
+      link(rel="preconnect" href="https://fonts.gstatic.com")
+      link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap" )
 
   body
     nav(class='navbar')
-      a(class='navbar-brand' href='/') taskd
+      a(class='navbar-brand' id="logo" href='/') taskd
       if locals.authenticated
-        span(class='welcome-msg') Welcome  #{user.userName}
-        form(class='logout-form' action='/logout' method="POST")
-          button(class='logoutBtn' type='submit') Log Out
+        div(class="welcome")
+          span(class='welcome-msg') Welcome  #{user.userName}
+          form(class='logout-form' action='/logout' method="POST")
+            button(class='logoutBtn' type='submit') Log Out
       else
-        span(class='navbar-span')
+        div(class='navbar-span')
+          a(class='login-link' href='login') Login
+          a(class='sign-up-link' href='signup') Sign-Up
           form(action="/demo" class="splash-page-button-form" method="post")
-            a(class='login-link' href='login') Log in
-            a(class='sign-up-link' href='signup') Sign Up
             button(type='submit' class='demo-button') Demo
     block content
+
+  footer
+    block footer
+      div(class="footer")
+        p(class="footer-names") task completed by
+          a(id="elias" class='name' href='https://github.com/EEichen')  Elias Eichen,
+          a(id="chuks" class='name' href='https://github.com/chuksota')  Chuks Ota,
+          a(id="josh" class='name' href='https://github.com/jps725')  and Josh Steinberg
