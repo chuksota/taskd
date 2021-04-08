@@ -1,0 +1,177 @@
+nav {
+  display: flex;
+  background-color: #293241;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+#logo {
+  font-family: "RocknRoll One", sans-serif;
+  font-size: 40px;
+  color: #faf9f9;
+  text-decoration: none;
+  margin-left: 10px;
+}
+.nav-logo {
+  height: 40px;
+  width: 40px;
+  position: relative;
+}
+.navbar-span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.welcome {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.login-link {
+  font-size: 20px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #faf9f9;
+  text-decoration: none;
+}
+
+.sign-up-link {
+  font-size: 20px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #faf9f9;
+  text-decoration: none;
+}
+
+.demo-button {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #faf9f9;
+  background-color: #ee6c4d;
+}
+
+.logoutBtn {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #faf9f9;
+  background-color: #ee6c4d;
+}
+
+.welcome-msg {
+  display: flex;
+  flex-direction: row;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #faf9f9;
+}
+
+body {
+  background-color: #e0fbfc;
+}
+
+#tag-line {
+  font-family: "RocknRoll One", sans-serif;
+  font-size: 30px;
+  text-align: center;
+  margin-top: 40px;
+  color: #293241;
+}
+
+.fade-images img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 5em;
+  margin: auto;
+  -webkit-animation-name: fade;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-duration: 10s;
+  animation-name: fade;
+  animation-iteration-count: infinite;
+  animation-duration: 10s;
+  height: 500px;
+  width: 500px;
+}
+
+@-webkit-keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.5;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+#img1 {
+  border-radius: 5px;
+}
+
+#img2 {
+  border-radius: 5px;
+  -webkit-animation-delay: -16s;
+  animation-delay: -16s;
+}
+
+#img3 {
+  border-radius: 5px;
+  -webkit-animation-delay: -12s;
+  animation-delay: -12s;
+}
+
+#img4 {
+  border-radius: 5px;
+  -webkit-animation-delay: -8s;
+  animation-delay: -8s;
+}
+
+#img5 {
+  border-radius: 5px;
+  -webkit-animation-delay: -4s;
+  animation-delay: -4s;
+}
