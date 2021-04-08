@@ -6,15 +6,11 @@ block content
         ul
             each error in errors
                 li= error
-
-    form(action="/signup" method="POST" class='form-inline pr-4' )
+    h1(id='sign-up-title') Sign Up Here!
+    form(action="/signup" method="POST" class='sign-up-form' )
         input(type="hidden" name="_csrf" value=csrfToken)
-        label(for="userName") User Name
-        input(type="text" name="userName" value=user.userName )
-        label(for='email') Email
-        input(type="email" name='email' value=user.email )
-        label(for='password') Password
-        input(type="password" name='password' value=user.password )
-        label(for='confirmPassword') Confirm Password
-        input(type="password" name='confirmPassword' value='' )
-        button(type='submit') Submit
+        input(class='sign-up-input' type="text" name="userName" placeholder='User Name' value=user.userName )
+        input(class='sign-up-input' type="email" name='email' placeholder='Email' value=user.email )
+        input(class='sign-up-input' type="password" name='password' placeholder='Password' value=user.password )
+        input(class='sign-up-input' type="password" name='confirmPassword' placeholder='Confirm Password' value='' )
+        button(id='sign-button' type='submit') Sign Up!

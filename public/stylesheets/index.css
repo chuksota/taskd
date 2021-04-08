@@ -38,28 +38,17 @@ button {
   margin: 5px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
   border-radius: 5px;
-  background-color: rgba(10, 149, 223);
+  background-color: #ee6c4d;
   font-weight: bold;
   color: whitesmoke;
 }
 
-#newListForm {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  border: 2px solid black;
-  border-radius: 10px;
-  position: absolute;
-  justify-content: center;
-  padding: 5px;
-  background-color: honeydew;
-}
 
 .hidden {
   visibility: hidden;
 }
 
-#newTaskForm {
+.form { 
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -71,32 +60,9 @@ button {
   background-color: honeydew;
 }
 
-#editTaskForm {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  border: 2px solid black;
-  border-radius: 10px;
-  position: absolute;
-  justify-content: center;
-  padding: 5px;
-  background-color: honeydew;
-}
-
-#editListForm {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  border: 2px solid black;
-  border-radius: 10px;
-  position: absolute;
-  justify-content: center;
-  padding: 5px;
-  background-color: honeydew;
-}
 
 .completed {
-  background-color: rgba(82, 220, 82, 0.29);
+  text-decoration: line-through;
 }
 
 
@@ -114,4 +80,45 @@ button {
 
 .searchTaskBtn {
   margin-right: 50px;
+}
+
+#sign-up-title  {
+  text-align: center;
+  font-size: 4em;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: #5e6472;
+}
+
+.sign-up-form{
+  display: flex;
+  /* justify-content: space-between; */
+  flex-direction: column;
+  box-sizing: border-box;
+  font-size: larger;
+  top: 20%;
+  border: 2px solid black;
+  border-radius: 10px;
+  /* position: fixed; */
+  width: 35%;
+  height: 35%;
+  padding: 5px;
+  margin: auto;
+  background-color: #293241;
+  /* margin: 1em; */
+  z-index: 20000;
+}
+
+.sign-up-input {
+  height: 1.7em;
+  font-size: 1.2em;
+  margin-top: .5em;
+  margin-bottom: .5em;
+  border-radius: 5px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#sign-button{
+  height: 2em;
+  width: 50%;
+  align-self: center;
 }

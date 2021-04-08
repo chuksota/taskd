@@ -98,6 +98,7 @@ body {
 
 .fade-images img {
   position: absolute;
+  box-sizing: border-box;
   left: 0;
   right: 0;
   bottom: 0;
@@ -180,18 +181,20 @@ body {
 }
 
 footer {
-  position: absolute;
+  position: fixed;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 15px;
-  bottom: 0;
-  width: 100%;
+  width: 99.2%;
   height: 3rem;
-  text-align: center;
-  padding-left: 5px;
+  bottom: 0;
+  text-align: right;
+  margin: auto;
   background-color: #ee6c4d;
+  padding-right: 2em;
   box-sizing: border-box;
   border-radius: 5px;
   color: #faf9f9;
+  z-index: -1;
 }
 
 .name {
