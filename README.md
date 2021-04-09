@@ -1,18 +1,27 @@
 # taskd
 
-taskd, a Remember The Milk  clone, is a todo-list application that allows users to create todo-lists and tasks in order to stay productive. In addition, taskd allows users to keep up with their 'productivity' by keeping a productivity score of their completed tasks for the day while also creating a fun and interactive environment by comparing that score to their friends. 
+Live site: [taskd](https://taskd.herokuapp.com/)
 
-Technologies Used:
+taskd, a Remember The Milk  clone, is a todo-list application that allows users to create todo-lists and tasks in order to stay productive. 
 
-taskd utilizes an express backend with an HTML and CSS frontend. 
+## Technologies Used:
 
-AWS S3 is used to store the uploaded posts
+  * Express 
+  * Sequelize 
+  * HTML 
+  * CSS  
+  * Javascript
+  * AJAX  
+  * Bcryptjs for authorization
+  * Pug for initial page generation
 
-Features and Functionality
-User Authentication - Users are able to log in and have access to features
+## Features and Functionality
 
+User Authentication - Users are able to securely sign-up and log-in.
+ 
 Lists - Authenticated users are able to create, name, rename, and add due dates to any list of their choosing. 
 
 Tasks - Authenticated users have the ability to create and add tasks to any list that they've previously created. Users are also able to edit any task, and also mark any task they've finished as completed.
-
+ 
+ ![logged in users homepage](https://i.gyazo.com/b3a20e64be7d88f72781a4ec9dc8f7f2.gif)
 
