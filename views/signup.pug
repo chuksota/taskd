@@ -1,9 +1,9 @@
 extends layout
 
 block content
-    div(class='errorsContainer' id="signUpErrorDiv")
-        p Issues:
-            if errors
+    if errors
+        div(class='errorsContainer' id="signUpErrorDiv")
+            p Issues:
                 ul
                     each error in errors
                         li= error

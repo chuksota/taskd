@@ -1,8 +1,8 @@
 extends layout.pug
 block content
-  div(class='errorsContainer' id="logInErrorDiv" hidden)
-    p Issues:
-      if errors
+  if errors
+    div(class='errorsContainer' id="logInErrorDiv" )
+      p Issues:
         ul
           each error in errors
             li= error
