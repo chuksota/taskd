@@ -174,7 +174,8 @@ window.addEventListener("DOMContentLoaded", async (event) => {
   //complete list listener------------------------------------------------------
   completeListBtn.addEventListener("click", async (event) => {
     const list = listsContainer[currentList];
-
+    completeListBtn.setAttribute("hidden", "true");
+    editListBtn.setAttribute("hidden", "true");
     await updateLists(list.name, list.dueDate, list.id, true);
 
     const listElement = document.querySelector(`#list-${currentList}`);
@@ -237,6 +238,10 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     createTaskButton.setAttribute("hidden", "true");
     editTaskBtn.setAttribute("hidden", "true");
     deleteTaskBtn.setAttribute("hidden", "true");
+    completeTaskBtn.setAttribute("hidden", "true");
+    editListBtn.setAttribute("hidden", "true");
+    deleteListBtn.setAttribute("hidden", "true");
+    listSummary.innerHTML = "";
   });
 
   //create new task listeners---------------------------------------------------
@@ -350,7 +355,9 @@ window.addEventListener("DOMContentLoaded", async (event) => {
   //complete task listener------------------------------------------------------
   completeTaskBtn.addEventListener("click", async (event) => {
     const task = tasksContainer[selectedTask];
-
+    if (task.completed) return;
+    editTaskBtn.setAttribute("hidden", "true");
+    completeTaskBtn.setAttribute("hidden", "true");
     await updateTasks(
       task.description,
       task.notes,
@@ -377,7 +384,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 
   // search bar listeners------------------------------------------------------------
   searchListBtn.addEventListener("click", async (event) => {
-    if(!searchBarInput.value) return;
+    if (!searchBarInput.value) return;
     listDiv.innerHTML = "";
     taskDiv.innerHTML = "";
     listDiv.innerHTML = "";

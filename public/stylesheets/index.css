@@ -105,6 +105,12 @@ button {
   padding-right: 10px;
 }
 
+input:focus,
+textarea:focus,
+button:focus {
+  outline: 0;
+}
+
 .searchTaskBtn {
   margin-right: 50px;
 }
@@ -147,6 +153,11 @@ button {
 }
 
 #sign-button {
+  height: 2em;
+  width: 50%;
+  align-self: center;
+}
+#log-button {
   height: 2em;
   width: 50%;
   align-self: center;
