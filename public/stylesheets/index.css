@@ -22,8 +22,8 @@ h1 {
   font-size: 20px;
   text-align: left;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  margin: 5px;
-  padding: 5px;
+  /* margin: 5px; */
+  /* padding: 5px; */
   display: grid;
   grid-template-rows: 1fr 2fr;
 }
@@ -184,5 +184,6 @@ button {
   background-color: rgba(223, 41, 41, 0.4);
   height: auto;
   width: 300px;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
