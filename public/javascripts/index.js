@@ -377,6 +377,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 
   // search bar listeners------------------------------------------------------------
   searchListBtn.addEventListener("click", async (event) => {
+    if(!searchBarInput.value) return;
     listDiv.innerHTML = "";
     taskDiv.innerHTML = "";
     listDiv.innerHTML = "";
@@ -398,6 +399,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
   });
 
   searchTaskBtn.addEventListener("click", async (event) => {
+    if (!searchBarInput.value) return;
     taskDiv.innerHTML = "";
     const searchTarget = searchBarInput.value;
     const taskSomething = await searchTasks(searchTarget);
