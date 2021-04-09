@@ -1,12 +1,14 @@
 extends layout.pug
 block content
-  if errors
-    ul
-      each error in errors
-        li= error
+  div(class='errorsContainer' id="logInErrorDiv" hidden)
+    p Issues:
+      if errors
+        ul
+          each error in errors
+            li= error
   h1(id="sign-up-title") Log in here!
   form(action='/login' method='POST' class='sign-up-form')
     input(type='hidden' name='_csrf' value=csrfToken)
     input(type='email' name='email' class='sign-up-input' placeholder='Email')
     input(type="password" name='password' class='sign-up-input' placeholder='Password')
-    button(type='submit' id="sign-button") Log in
+    button(type='submit' id="log-button") Log in

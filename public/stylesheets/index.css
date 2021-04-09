@@ -175,3 +175,13 @@ button {
 .tasking::before {
   content: "•";
 }
+
+.errorsContainer {
+  box-sizing: border-box;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  background-color: rgba(223, 41, 41, 0.4);
+  height: 10em;
+  width: 20em;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  visibility: hidden;
+}

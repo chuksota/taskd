@@ -75,6 +75,12 @@ let completedTasks = 0;
 // previous selected elements---------------------------------------------------
 let previousListElement;
 let previousTaskElement;
+// sign-up and log-in buttons---------------------------------------------------
+const signUpBtn = document.querySelector('#sign-button')
+const loginBtn = document.querySelector('#log-button')
+const signupErrorDiv = document.querySelectorAll('#signUpErrorDiv')
+const loginErrorDiv = document.querySelector('#logInErrorDiv')
+
 //create element functions------------------------------------------------------
 function createListElement(list) {
   const listName = document.createElement("div");
@@ -430,4 +436,8 @@ window.addEventListener("DOMContentLoaded", async (event) => {
       listsContainer[list.id] = list;
     });
   });
+
+  signUpBtn.addEventListener('click', (event)=>{
+    signupErrorDiv.classList.remove('hidden')
+  })
 });
