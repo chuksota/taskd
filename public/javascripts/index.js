@@ -75,6 +75,7 @@ let completedTasks = 0;
 // previous selected elements---------------------------------------------------
 let previousListElement;
 let previousTaskElement;
+
 //create element functions------------------------------------------------------
 function createListElement(list) {
   const listName = document.createElement("div");
@@ -177,7 +178,6 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     await updateLists(list.name, list.dueDate, list.id, true);
 
     const listElement = document.querySelector(`#list-${currentList}`);
-    console.log(listElement);
     listElement.classList.add("completed");
   });
 

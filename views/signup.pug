@@ -1,11 +1,12 @@
 extends layout
 
 block content
-
     if errors
-        ul
-            each error in errors
-                li= error
+        div(class='errorsContainer' id="signUpErrorDiv")
+            p Issues:
+                ul
+                    each error in errors
+                        li= error
     h1(id='sign-up-title') Sign Up Here!
     form(action="/signup" method="POST" class='sign-up-form' )
         input(type="hidden" name="_csrf" value=csrfToken)

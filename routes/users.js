@@ -27,7 +27,7 @@ const signUpValidators = [
     }),
   check("email")
     .exists({ checkFalsy: true })
-    .withMessage("Please enter a email")
+    .withMessage("Please enter an email")
     .isLength({ max: 100 })
     .withMessage("Email must not be more than 100 characters long")
     .isEmail()
