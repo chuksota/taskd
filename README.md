@@ -24,6 +24,17 @@ Lists - Authenticated users are able to create, name, rename, and add due dates 
 Tasks - Authenticated users have the ability to create and add tasks to any list that they've previously created. Users are also able to edit any task, and also mark any task they've finished as completed.
  
 Search - Authenticated users will be able to search through all of their lists and tasks to find a specific list or task whenever they need to. 
+
+ Backend search for task snippet:
+ 
+ ```js
+     const foundListsWithTasks = await List.findAll({
+      where: { userId },
+      include: [
+        { model: Task, where: { description: { [Op.iLike]: `%${input}%` } } },
+      ],
+    });
+``` 
  
 List Summary - Authenticated users will be able to view the currently selected lists statitistics including the amount of tasks that are in that list, the number of completed tasks in that list, and the optional due date. 
  
