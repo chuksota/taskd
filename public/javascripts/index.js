@@ -46,7 +46,9 @@ const completeTaskBtn = document.querySelector("#completeTaskButton");
 //list summary elements---------------------------------------------------------
 const listSummaryLabel = document.querySelector("#listSummaryLabel");
 const listSummary = document.querySelector("#listSummary");
-
+const taskCounter = document.querySelector('#taskCounter');
+const taskCompleted = document.querySelector('#taskCompleted');
+const listDate = document.querySelector('#listDate')
 //task notes elements-----------------------------------------------------------
 const taskNotesDiv = document.querySelector("#taskNotes");
 const notesLabel = document.querySelector("#notesLabel");
@@ -138,7 +140,9 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     deleteListBtn.removeAttribute("hidden");
     listSummaryLabel.removeAttribute("hidden");
     listSummary.removeAttribute("hidden");
-
+    taskCounter.removeAttribute("hidden")
+    taskCompleted.removeAttribute('hidden')
+    listDate.removeAttribute('hidden')
     tasksCounter = 0;
     completedTasks = 0;
 
@@ -161,13 +165,14 @@ window.addEventListener("DOMContentLoaded", async (event) => {
       tasksCounter++;
       if (task.completed) completedTasks++;
     });
-    listSummary.innerHTML = `Tasks: ${tasksCounter} Tasks Completed: ${completedTasks}`;
+
+    taskCounter.innerHTML = `Tasks: ${tasksCounter}`
+    taskCompleted.innerHTML = `Tasks Completed: ${completedTasks}`
 
     let currentListDueDate = listsContainer[currentList].dueDate;
 
     if (currentListDueDate) {
-      listSummary.innerHTML =
-        listSummary.innerHTML + ` Due Date: ${currentListDueDate.slice(0, 10)}`;
+      listDate.innerHTML = ` Due Date: ${currentListDueDate.slice(0, 10)}`;
     }
   });
 
@@ -342,13 +347,13 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     }
     tasksCounter--;
 
-    listSummary.innerHTML = `Tasks: ${tasksCounter} Tasks Completed: ${completedTasks}`;
-
+    // listSummary.innerHTML = `Tasks: ${tasksCounter} Tasks Completed: ${completedTasks}`;
+    taskCounter.innerHTML = `Tasks: ${tasksCounter}`
+    taskCompleted.innerHTML = `Tasks Completed: ${completedTasks}`
     let currentListDueDate = listsContainer[currentList].dueDate;
 
     if (currentListDueDate) {
-      listSummary.innerHTML =
-        listSummary.innerHTML + ` Due Date: ${currentListDueDate.slice(0, 10)}`;
+      listDate.innerHTML = ` Due Date: ${currentListDueDate.slice(0, 10)}`;
     }
   });
 
@@ -372,13 +377,13 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 
     completedTasks++;
 
-    listSummary.innerHTML = `Tasks: ${tasksCounter} Tasks Completed: ${completedTasks}`;
-
+    // listSummary.innerHTML = `Tasks: ${tasksCounter} Tasks Completed: ${completedTasks}`;
+    taskCounter.innerHTML = `Tasks: ${tasksCounter}`
+    taskCompleted.innerHTML = `Tasks Completed: ${completedTasks}`
     let currentListDueDate = listsContainer[currentList].dueDate;
 
     if (currentListDueDate) {
-      listSummary.innerHTML =
-        listSummary.innerHTML + ` Due Date: ${currentListDueDate.slice(0, 10)}`;
+      listDate.innerHTML = ` Due Date: ${currentListDueDate.slice(0, 10)}`;
     }
   });
 
