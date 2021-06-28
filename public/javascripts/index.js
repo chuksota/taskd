@@ -289,16 +289,21 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     let taskElement = document.querySelector(`#${event.target.id}`);
     taskElement.classList.add("selected");
     previousTaskElement = taskElement;
-    completeTaskBtn.removeAttribute("hidden");
     notesLabel.removeAttribute("hidden");
-
+    
     deleteTaskBtn.removeAttribute("hidden");
     taskNotesDiv.innerHTML = "";
     const taskIdArray = event.target.id.split("-");
     const taskId = parseInt(taskIdArray[1]);
     selectedTask = taskId;
     const currentTask = tasksContainer[taskId];
-    if (!currentTask.completed) editTaskBtn.removeAttribute("hidden");
+    if (!currentTask.completed){ 
+      editTaskBtn.removeAttribute("hidden");
+      completeTaskBtn.removeAttribute("hidden");
+    }else {
+      editTaskBtn.setAttribute("hidden", "true");
+      completeTaskBtn.setAttribute("hidden", "true");
+    }
     taskNotesDiv.innerHTML = currentTask.notes;
   });
 
