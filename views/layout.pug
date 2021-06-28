@@ -10,6 +10,7 @@ html
       link(rel="stylesheet" href="/stylesheets/splash.css")
       link(rel="preconnect" href="https://fonts.gstatic.com")
       link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap" )
+      link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous")
 
   body
     nav(class='navbar')
@@ -37,6 +38,20 @@ html
     block footer
       div(class="footer")
         p(class="footer-names") task completed by
-          a(id="elias" class='name' href='https://github.com/EEichen')  Elias Eichen,
-          a(id="chuks" class='name' href='https://github.com/chuksota')  Chuks Ota,
-          a(id="josh" class='name' href='https://github.com/jps725')  and Josh Steinberg
+          span(class="name") Elias Eichen
+          a(class="name" id="elias" href='https://github.com/EEichen' )
+            i(class="fab fa-github")
+          a(class="name" id="elias" href='https://www.linkedin.com/in/elias-eichen-bb15a4198/')
+            i(class="fab fa-linkedin")
+          span(class="name") |
+          span(class="name") Chuks Ota
+          a(class="name" id="chuks" href="https://github.com/chuksota")
+            i(class="fab fa-github")
+          a(class="name" id="chuks" href="https://www.linkedin.com/in/chuks-ota-818248127/")
+            i(class="fab fa-linkedin")
+          span(class="name") |
+          span(class="name") Josh Steinberg
+          a(class="name" id="josh" href='https://github.com/jps725')
+            i(class="fab fa-github")
+          a(class="name" id="josh" href='https://www.linkedin.com/in/josh-steinberg-21618846/')
+            i(class="fab fa-linkedin")
