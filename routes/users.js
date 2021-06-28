@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const { asyncHandler, csrfProtection } = require("./utils");
 const { check, validationResult } = require("express-validator");
 const { loginUser, logoutUser } = require("../auth");
+const list = require("../db/models/list");
 
 /* GET users listing. */
 router.get("/signup", csrfProtection, function (req, res, next) {
@@ -73,6 +74,23 @@ router.post(
       const hashedPassword = await bcrypt.hash(password, 10);
       user.hashedPassword = hashedPassword;
       await user.save();
+      const newList = db.List.build({
+        name: "Get Started",
+        userId: user.id,
+      });
+      await newList.save();
+      const newTask = db.Task.build({
+        description: "Click Create New Task",
+        notes: "This will add a task to the current list.",
+        listId: newList.id,
+      });
+      await newTask.save();
+      const newTask2 = db.Task.build({
+        description: "Click Create New List",
+        notes: "This will add a new list.",
+        listId: newList.id,
+      });
+      await newTask2.save();
       loginUser(req, res, user);
       res.redirect("/homepage");
     } else {
@@ -147,7 +165,5 @@ router.post(
     });
   })
 );
-
-
 
 module.exports = router;
