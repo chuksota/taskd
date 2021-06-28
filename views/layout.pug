@@ -18,8 +18,10 @@ html
         a(class='navbar-brand' id="logo" href='/homepage') taskd
         div(class="welcome")
           input(type="text" class='searchBarInput' id='searchBar' placeholder= "search" results="0")
-          button(class="searchBtn" id='searchListBtn' type="submit") Search Lists
-          button(class='searchBtn' id="searchTaskBtn" type='submit') Search Tasks
+          button(class="searchBtn" id='searchBtn' type="submit") Search
+          select(class='searchBtn' id="selectSearchBtn" type='submit') Select Search
+            option(value="Lists") Lists
+            option(value="Tasks") Tasks
           button(class='returnBtn' id="resetListsBtn" type='submit') Clear Search
           span(class='welcome-msg') Welcome  #{user.userName}
           form(class='logout-form' action='/logout' method="POST")
