@@ -22,6 +22,10 @@ module.exports = {
         type: Sequelize.STRING.BINARY,
         allowNull: false,
       },
+      productivityScore: {
+        type: Sequelize.INTEGER,
+        default: 0,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
