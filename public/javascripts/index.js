@@ -1,6 +1,7 @@
 import { createTask, allTasks, updateTasks, deleteTasks } from "./tasks.js";
 import { createList, allLists, updateLists, deleteLists } from "./lists.js";
 import { searchLists, searchTasks } from "./search.js";
+import { getScore, updateScore } from "./productivityScore.js";
 //list and task display area elements
 const listDiv = document.querySelector("#listOfLists");
 const taskDiv = document.querySelector("#listOfTasks");
@@ -46,9 +47,9 @@ const completeTaskBtn = document.querySelector("#completeTaskButton");
 //list summary elements---------------------------------------------------------
 const listSummaryLabel = document.querySelector("#listSummaryLabel");
 const listSummary = document.querySelector("#listSummary");
-const taskCounter = document.querySelector('#taskCounter');
-const taskCompleted = document.querySelector('#taskCompleted');
-const listDate = document.querySelector('#listDate')
+const taskCounter = document.querySelector("#taskCounter");
+const taskCompleted = document.querySelector("#taskCompleted");
+const listDate = document.querySelector("#listDate");
 //task notes elements-----------------------------------------------------------
 const taskNotesDiv = document.querySelector("#taskNotes");
 const notesLabel = document.querySelector("#notesLabel");
@@ -60,9 +61,12 @@ const cancelBtns = document.querySelectorAll(".cancel");
 const searchBarInput = document.querySelector("#searchBar");
 const selectSearchBtn = document.querySelector("#selectSearchBtn");
 const searchBtn = document.querySelector("#searchBtn");
-let selectedSearchType = 'Lists'
+let selectedSearchType = "Lists";
 const resetListofLists = document.querySelector("#resetListsBtn");
 
+//current user score -----------------------------------------------------------
+const productivityScore = document.querySelector("#leaderboard");
+let score;
 //selected list/task id---------------------------------------------------------
 let selectedTask;
 let currentList;
@@ -105,6 +109,7 @@ function createTaskElement(task) {
 
 //listeners start---------------------------------------------------------------
 window.addEventListener("DOMContentLoaded", async (event) => {
+  userScore();
   //cancel buttons listeners----------------------------------------------------
   cancelBtns.forEach((button) => {
     button.addEventListener("click", (event) => {
@@ -141,9 +146,9 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     deleteListBtn.removeAttribute("hidden");
     listSummaryLabel.removeAttribute("hidden");
     listSummary.removeAttribute("hidden");
-    taskCounter.removeAttribute("hidden")
-    taskCompleted.removeAttribute('hidden')
-    listDate.removeAttribute('hidden')
+    taskCounter.removeAttribute("hidden");
+    taskCompleted.removeAttribute("hidden");
+    listDate.removeAttribute("hidden");
     tasksCounter = 0;
     completedTasks = 0;
 
@@ -167,8 +172,8 @@ window.addEventListener("DOMContentLoaded", async (event) => {
       if (task.completed) completedTasks++;
     });
 
-    taskCounter.innerHTML = `Tasks: ${tasksCounter}`
-    taskCompleted.innerHTML = `Tasks Completed: ${completedTasks}`
+    taskCounter.innerHTML = `Tasks: ${tasksCounter}`;
+    taskCompleted.innerHTML = `Tasks Completed: ${completedTasks}`;
 
     let currentListDueDate = listsContainer[currentList].dueDate;
 
@@ -290,17 +295,17 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     taskElement.classList.add("selected");
     previousTaskElement = taskElement;
     notesLabel.removeAttribute("hidden");
-    
+
     deleteTaskBtn.removeAttribute("hidden");
     taskNotesDiv.innerHTML = "";
     const taskIdArray = event.target.id.split("-");
     const taskId = parseInt(taskIdArray[1]);
     selectedTask = taskId;
     const currentTask = tasksContainer[taskId];
-    if (!currentTask.completed){ 
+    if (!currentTask.completed) {
       editTaskBtn.removeAttribute("hidden");
       completeTaskBtn.removeAttribute("hidden");
-    }else {
+    } else {
       editTaskBtn.setAttribute("hidden", "true");
       completeTaskBtn.setAttribute("hidden", "true");
     }
@@ -354,8 +359,8 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     tasksCounter--;
 
     // listSummary.innerHTML = `Tasks: ${tasksCounter} Tasks Completed: ${completedTasks}`;
-    taskCounter.innerHTML = `Tasks: ${tasksCounter}`
-    taskCompleted.innerHTML = `Tasks Completed: ${completedTasks}`
+    taskCounter.innerHTML = `Tasks: ${tasksCounter}`;
+    taskCompleted.innerHTML = `Tasks Completed: ${completedTasks}`;
     let currentListDueDate = listsContainer[currentList].dueDate;
 
     if (currentListDueDate) {
@@ -378,14 +383,15 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     );
 
     task.completed = true;
+    addToScore();
     const taskElement = document.querySelector(`#task-${selectedTask}`);
     taskElement.classList.add("completed");
 
     completedTasks++;
 
     // listSummary.innerHTML = `Tasks: ${tasksCounter} Tasks Completed: ${completedTasks}`;
-    taskCounter.innerHTML = `Tasks: ${tasksCounter}`
-    taskCompleted.innerHTML = `Tasks Completed: ${completedTasks}`
+    taskCounter.innerHTML = `Tasks: ${tasksCounter}`;
+    taskCompleted.innerHTML = `Tasks Completed: ${completedTasks}`;
     let currentListDueDate = listsContainer[currentList].dueDate;
 
     if (currentListDueDate) {
@@ -396,44 +402,42 @@ window.addEventListener("DOMContentLoaded", async (event) => {
   // search bar listeners------------------------------------------------------------
   searchBtn.addEventListener("click", async (event) => {
     if (!searchBarInput.value) return;
-      if(selectedSearchType === 'Lists'){
-        listDiv.innerHTML = "";
-        taskDiv.innerHTML = "";
-        listDiv.innerHTML = "";
-        taskNotesDiv.innerHTML = "";
-        listSummary.innerHTML = "";
-        notesLabel.setAttribute("hidden", "true");
-        listSummaryLabel.setAttribute("hidden", "true");
-        editTaskBtn.setAttribute("hidden", "true");
-        deleteTaskBtn.setAttribute("hidden", "true");
-        completeTaskBtn.setAttribute("hidden", "true");
-        createTaskButton.setAttribute("hidden", "true");
-        const searchTarget = searchBarInput.value;
-        const listSomething = await searchLists(searchTarget);
-        const { foundLists } = listSomething;
-        foundLists.forEach((list) => {
-          createListElement(list);
-          listsContainer[list.id] = list;
-        });
-      }
-      else{
-        taskDiv.innerHTML = "";
-        const searchTarget = searchBarInput.value;
-        const taskSomething = await searchTasks(searchTarget);
-        const { foundTasks } = taskSomething;
-        foundTasks.forEach((task) => {
-          createTaskElement(task);
-          tasksContainer[task.id] = task;
-        });
-      }
-
+    if (selectedSearchType === "Lists") {
+      listDiv.innerHTML = "";
+      taskDiv.innerHTML = "";
+      listDiv.innerHTML = "";
+      taskNotesDiv.innerHTML = "";
+      listSummary.innerHTML = "";
+      notesLabel.setAttribute("hidden", "true");
+      listSummaryLabel.setAttribute("hidden", "true");
+      editTaskBtn.setAttribute("hidden", "true");
+      deleteTaskBtn.setAttribute("hidden", "true");
+      completeTaskBtn.setAttribute("hidden", "true");
+      createTaskButton.setAttribute("hidden", "true");
+      const searchTarget = searchBarInput.value;
+      const listSomething = await searchLists(searchTarget);
+      const { foundLists } = listSomething;
+      foundLists.forEach((list) => {
+        createListElement(list);
+        listsContainer[list.id] = list;
+      });
+    } else {
+      taskDiv.innerHTML = "";
+      const searchTarget = searchBarInput.value;
+      const taskSomething = await searchTasks(searchTarget);
+      const { foundTasks } = taskSomething;
+      foundTasks.forEach((task) => {
+        createTaskElement(task);
+        tasksContainer[task.id] = task;
+      });
+    }
   });
 
   selectSearchBtn.addEventListener("change", async (event) => {
     // if (!searchBarInput.value) return;
 
-    selectedSearchType = event.target.value
-    console.log(selectedSearchType)
+    selectedSearchType = event.target.value;
+    console.log(selectedSearchType);
   });
 
   resetListofLists.addEventListener("click", async (event) => {
@@ -459,3 +463,15 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     });
   });
 });
+
+async function userScore() {
+  score = await getScore();
+  score = score.productivityScore;
+  productivityScore.innerHTML = `Productivity Score: ${score}`;
+}
+
+function addToScore() {
+  score += 1;
+  updateScore(score);
+  productivityScore.innerHTML = `Productivity Score: ${score}`;
+}

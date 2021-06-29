@@ -64,9 +64,11 @@ router.post(
   signUpValidators,
   asyncHandler(async (req, res) => {
     const { userName, email, password } = req.body;
+
     const user = db.User.build({
       userName,
       email,
+      productivityScore: 0,
     });
     const validatorErrors = validationResult(req);
 
@@ -163,6 +165,32 @@ router.post(
         return res.redirect("/");
       }
     });
+  })
+);
+
+router.get(
+  "/productivity-score",
+  asyncHandler(async (req, res, next) => {
+    const { userId } = req.session.auth;
+    const user = await db.User.findByPk(userId);
+    const productivityScore = user.productivityScore;
+    res.json({ productivityScore });
+  })
+);
+
+router.put(
+  "/productivity-score",
+  asyncHandler(async (req, res, next) => {
+    const { productivityScore } = req.body;
+    const { userId } = req.session.auth;
+    const user = await db.User.findByPk(userId);
+
+    if (user) {
+      if (userId !== 1) {
+        await user.update({ productivityScore });
+      }
+      res.json({ productivityScore });
+    }
   })
 );
 

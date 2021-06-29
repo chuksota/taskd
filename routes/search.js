@@ -12,7 +12,7 @@ router.get(
   asyncHandler(async (req, res) => {
     const { userId } = req.session.auth;
     const input = req.params.input;
-    console.log(input);
+    // console.log(input);
     const foundLists = await List.findAll({
       where: { userId, name: { [Op.iLike]: `%${input}%` } },
     });
@@ -26,7 +26,7 @@ router.get(
   asyncHandler(async (req, res) => {
     const { userId } = req.session.auth;
     const input = req.params.input;
-    console.log(input);
+    // console.log(input);
 
     const foundListsWithTasks = await List.findAll({
       where: { userId },
