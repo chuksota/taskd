@@ -67,6 +67,7 @@ const resetListofLists = document.querySelector("#resetListsBtn");
 //current user score -----------------------------------------------------------
 const productivityScore = document.querySelector("#leaderboard");
 let score;
+
 //selected list/task id---------------------------------------------------------
 let selectedTask;
 let currentList;

@@ -25,7 +25,13 @@ h1 {
   /* margin: 5px; */
   /* padding: 5px; */
   display: grid;
-  grid-template-rows: 1fr 2fr;
+  /* grid-template-rows: 1fr 2fr; */
+  grid-auto-rows: min-content;
+}
+
+#rightViewArea > div{
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .viewArea {
@@ -55,10 +61,16 @@ h1 {
   padding-bottom: 2em;
 }
 
+#summary-title{
+  margin-top: 10px;
+  border-bottom: 1px solid black;
+  
+}
+
 #listSummary {
   position: relative;
   text-align: center;
-  top: 30%;
+  top: 10%;
   bottom: 70%;
 }
 
@@ -208,7 +220,7 @@ button:focus {
 .splash-lb{
   position: relative;
   left: 75%;
-  max-width: 15%;
+  max-width: 20%;
   border-radius: 5px;
   padding: 5px;
   background-color: #293241;
@@ -217,4 +229,20 @@ button:focus {
 
 #lb{
   border-bottom: 1px solid #faf9f9;
+}
+
+.score-display{
+  padding-left: 10px;
+}
+
+.score-display > li{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3px;
+  padding-bottom: 2px;
+  border-bottom: 1px dashed lightcyan;
+}
+
+#leaderboard{
+  margin-bottom: 5px;
 }

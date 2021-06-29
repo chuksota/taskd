@@ -197,18 +197,23 @@ router.put(
 router.get(
   "/leaderboard",
   asyncHandler(async (req, res, next) => {
-    const users = await db.user.findAll({
+    console.log('mykw')
+    const users = await db.User.findAll({
       order: [
         ['productivityScore', 'DESC']
       ],
       limit: 10
     })
+    console.log(users)
 
     let scoreboard = users.map(user => {
-      return { username:user.username, productivityScore: user.productivityScore}
+      return { userName:user.userName, productivityScore: user.productivityScore}
     })
 
-    return res.json({ scoreboard })
+    console.log(scoreboard)
+
+
+    res.json({ scoreboard })
   })
 )
 

@@ -14,4 +14,10 @@ const updateScore = async (productivityScore) => {
   return await res.json();
 };
 
-export { getScore, updateScore };
+const getLeaderboard = async () => {
+  const res = await fetch("/leaderboard")
+
+  return await res.json()
+}
+
+export { getScore, updateScore, getLeaderboard };
