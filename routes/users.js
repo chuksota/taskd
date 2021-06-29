@@ -194,4 +194,22 @@ router.put(
   })
 );
 
+router.get(
+  "/leaderboard",
+  asyncHandler(async (req, res, next) => {
+    const users = await db.user.findAll({
+      order: [
+        ['productivityScore', 'DESC']
+      ],
+      limit: 10
+    })
+
+    let scoreboard = users.map(user => {
+      return { username:user.username, productivityScore: user.productivityScore}
+    })
+
+    return res.json({ scoreboard })
+  })
+)
+
 module.exports = router;

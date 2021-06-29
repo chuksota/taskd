@@ -204,3 +204,17 @@ button:focus {
 #listDate{
   margin-top: .5em;
 }
+
+.splash-lb{
+  position: relative;
+  left: 75%;
+  max-width: 15%;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #293241;
+  color: #faf9f9;
+}
+
+#lb{
+  border-bottom: 1px solid #faf9f9;
+}
